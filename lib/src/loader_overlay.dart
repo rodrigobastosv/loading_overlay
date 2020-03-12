@@ -2,7 +2,7 @@ library loader_overlay;
 
 import 'package:flutter/material.dart';
 
-import '../barrel.dart';
+import '../loader_overlay.dart';
 
 class LoaderOverlay extends StatefulWidget {
   LoaderOverlay(
