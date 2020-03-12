@@ -4,7 +4,7 @@ Have you ever found yourself in the situation of doing some async processing you
 
 # Basic Usage
 
-The most simple usage is just wrap the widget that you want an overlay on LoadingOverlay with the useDefaultLoading set to true.
+The most simple usage is just wrap the widget that you want an overlay on LoaderOverlay with the useDefaultLoader set to true.
 
 ```dart
 class MyApp extends StatelessWidget {
@@ -15,8 +15,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoadingOverlay(
-        useDefaultLoading: true,
+      home: LoaderOverlay(
+        useDefaultLoader: true,
         child: MyHomePage(title: 'Flutter Demo Home Page'),
       ),
     );
@@ -24,12 +24,12 @@ class MyApp extends StatelessWidget {
 }
 ```
 
-This simple step will already configure the loading overlay for use.
+This simple step will already configure the loader overlay for use.
 
 After that configuration you can just run the command:
 
 ```
-context.showLoadingOverlay()
+context.showLoaderOverlay()
 ```
 
 This will show the overlay with the default loading indicator. The default loading configured is to just show a centered CircularProgressIndicator
@@ -37,15 +37,15 @@ This will show the overlay with the default loading indicator. The default loadi
 To hide the overlay (after the async processing, for example), just run the command:
 
 ```
-context.hideLoadingOverlay()
+context.hideLoaderOverlay()
 ```
 
-*Note: You will always need the context to show or hide the loading overlay
+*Note: You will always need the context to show or hide the loader overlay
 
 ![enter image description here](https://media.giphy.com/media/IgGXIvgUtHNjWlWFQm/giphy.gif)
 
 # Customisation
-Your overlay loading widget can be any widget you want. For example you can import the package
+Your overlay loader widget can be any widget you want. For example you can import the package
  ![flutter_spinkit][flutter_spinkit] and customise your widget like this. To do that just pass your widget to `overlayWidget`.
 
 ```dart
@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoadingOverlay(
+      home: LoaderOverlay(
         overlayWidget: Center(
           child: SpinKitCubeGrid(
             color: Colors.red,
@@ -84,7 +84,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoadingOverlay(
+      home: LoaderOverlay(
         overlayWidget: Center(
           child: SpinKitCubeGrid(
             color: Colors.red,
