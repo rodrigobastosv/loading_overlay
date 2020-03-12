@@ -9,6 +9,7 @@ class LoadingOverlay extends StatefulWidget {
       {this.overlayWidget,
       this.useDefaultLoading = false,
       this.overlayOpacity,
+      this.overlayColor = Colors.grey,
       @required this.child})
       : assert(overlayWidget != null || useDefaultLoading != null),
         assert(child != null);
@@ -16,6 +17,7 @@ class LoadingOverlay extends StatefulWidget {
   final Widget overlayWidget;
   final bool useDefaultLoading;
   final double overlayOpacity;
+  final Color overlayColor;
   final Widget child;
 
   @override
@@ -45,7 +47,7 @@ class _LoadingOverlayState extends State<LoadingOverlay> {
                         opacity:
                             snapshot.data ? (widget.overlayOpacity ?? 0.4) : 0,
                         child: Container(
-                          color: Colors.grey,
+                          color: widget.overlayColor,
                           child: widget.useDefaultLoading
                               ? _getDefaultLoadingWidget()
                               : widget.overlayWidget,
