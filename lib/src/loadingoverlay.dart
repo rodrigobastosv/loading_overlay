@@ -7,7 +7,7 @@ import '../loading_overlay.dart';
 class LoadingOverlay extends StatefulWidget {
   LoadingOverlay(
       {this.overlayWidget,
-      this.useDefaultLoading,
+      this.useDefaultLoading = false,
       this.overlayOpacity,
       @required this.child})
       : assert(overlayWidget != null || useDefaultLoading != null),
