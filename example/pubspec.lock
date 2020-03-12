@@ -88,7 +88,7 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.4"
-  loading_overlay:
+  loader_overlay:
     dependency: "direct main"
     description:
       path: ".."

@@ -1,4 +1,4 @@
-name: loading_overlay
+name: loader_overlay
 description: A simple package to simplify screen management when loading
 version: 1.0.0
 homepage: https://github.com/rodrigobastosv/loading_overlay

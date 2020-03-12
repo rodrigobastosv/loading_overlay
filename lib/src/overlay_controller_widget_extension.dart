@@ -6,7 +6,7 @@ extension OverlayControllerWidgetExtension on BuildContext {
   OverlayControllerWidget getOverlayController() =>
       OverlayControllerWidget.of(this);
 
-  void showLoadingOverlay() => getOverlayController().setOverlayVisible(true);
+  void showLoaderOverlay() => getOverlayController().setOverlayVisible(true);
 
-  void hideLoadingOverlay() => getOverlayController().setOverlayVisible(false);
+  void hideLoaderOverlay() => getOverlayController().setOverlayVisible(false);
 }

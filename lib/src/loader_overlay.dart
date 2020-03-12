@@ -1,11 +1,11 @@
-library loading_overlay;
+library loader_overlay;
 
 import 'package:flutter/material.dart';
 
-import '../loading_overlay.dart';
+import '../barrel.dart';
 
-class LoadingOverlay extends StatefulWidget {
-  LoadingOverlay(
+class LoaderOverlay extends StatefulWidget {
+  LoaderOverlay(
       {this.overlayWidget,
       this.useDefaultLoading = false,
       this.overlayOpacity,
@@ -21,10 +21,10 @@ class LoadingOverlay extends StatefulWidget {
   final Widget child;
 
   @override
-  _LoadingOverlayState createState() => _LoadingOverlayState();
+  _LoaderOverlayState createState() => _LoaderOverlayState();
 }
 
-class _LoadingOverlayState extends State<LoadingOverlay> {
+class _LoaderOverlayState extends State<LoaderOverlay> {
   @override
   void dispose() {
     context.getOverlayController().dispose();

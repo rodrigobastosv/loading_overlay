@@ -24,7 +24,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
   flutter_spinkit: "^4.1.2"
-  loading_overlay:
+  loader_overlay:
     path: ../
 
 dev_dependencies:

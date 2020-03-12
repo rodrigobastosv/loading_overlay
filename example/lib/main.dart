@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:loading_overlay/loading_overlay.dart';
+import 'package:loader_overlay/barrel.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: LoadingOverlay(
+      home: LoaderOverlay(
         overlayWidget: Center(
           child: SpinKitCubeGrid(
             color: Colors.red,
@@ -48,11 +48,11 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             RaisedButton(
               onPressed: () async {
-                context.showLoadingOverlay();
+                context.showLoaderOverlay();
                 await Future.delayed(Duration(seconds: 3));
-                context.hideLoadingOverlay();
+                context.hideLoaderOverlay();
               },
-              child: Text('Show loading overlay for 2 seconds'),
+              child: Text('Show loader overlay for 2 seconds'),
             )
           ],
         ),
