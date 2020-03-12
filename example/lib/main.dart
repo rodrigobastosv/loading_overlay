@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:loadingoverlay/loading_overlay.dart';
 
 void main() => runApp(MyApp());
@@ -12,7 +13,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: LoadingOverlay(
-        useDefaultLoading: true,
+        overlayWidget: Center(
+          child: SpinKitCubeGrid(
+            color: Colors.red,
+            size: 50.0,
+          ),
+        ),
+        overlayOpacity: 0.8,
         child: MyHomePage(title: 'Flutter Demo Home Page'),
       ),
     );

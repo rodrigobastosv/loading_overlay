@@ -1,4 +1,4 @@
-library loadingoverlay;
+library loading_overlay;
 
 import 'package:flutter/material.dart';
 

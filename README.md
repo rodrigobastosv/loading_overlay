@@ -42,35 +42,74 @@ context.hideLoadingOverlay()
 
 *Note: You will always need the context to show or hide the loading overlay
 
-![enter image description here](https://s5.gifyu.com/images/default.gif)
+![enter image description here](https://media.giphy.com/media/IgGXIvgUtHNjWlWFQm/giphy.gif)
 
-# More Advanced Usage
-If you don't like the default widget behavior, you can set the background colors of the image, the color of the shimmer base effect, and the color of the highlighted effect.
-
-```dart
-FancyShimmerImage(
-  imageUrl: 'https://static.businessinsider.sg/2018/12/12/5c1c90f8e04d6243c7019cf6.png',
-  shimmerBaseColor: randomColor(),
-  shimmerHighlightColor: randomColor(),
-  shimmerBackColor: randomColor(),
-)
-```
-
-By randomizing the colors you can have a result similar to this:
-
-![enter image description here](https://s5.gifyu.com/images/randomad6f88534e0cedf4.gif)
-
-Other thing you can do is to configure the direction of the Shimmer and it's speed. In the above example i configured it to have top to bottom direction and 300 milliseconds of speed.
-
-![enter image description here](https://s5.gifyu.com/images/fast.gif)
-
-One last step you can configure is to configure the widget that will appear in case the image upload fails for some reason. In this case just pass the desired widget in the `errorWidget` parameter. If no value is passed, a default error widget will be used.
+# Customisation
+Your overlay loading widget can be any widget you want. For example you can import the package
+ ![flutter_spinkit][flutter_spinkit] and customise your widget like this. To do that just pass your widget to `overlayWidget`.
 
 ```dart
-FancyShimmerImage(
-  imageUrl: 'https://static.businessinsider.sg/2018/12/12/5c1c90f8e04d6243c7019cf6.png',
-  errorWidget: Image.network('https://i0.wp.com/www.dobitaobyte.com.br/wp-content/uploads/2016/02/no_image.png?ssl=1'),
-)
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: LoadingOverlay(
+        overlayWidget: Center(
+          child: SpinKitCubeGrid(
+            color: Colors.red,
+            size: 50.0,
+          ),
+        ),
+        child: MyHomePage(title: 'Flutter Demo Home Page'),
+      ),
+    );
+  }
+}
 ```
 
-![enter image description here](https://s5.gifyu.com/images/error.png)
+![enter image description here](https://media.giphy.com/media/Q8gY97DxhO8KZgQfT6/giphy.gif)
+
+Another customisation you can do is configure the opacity of the overlay. The default opacity is 0.4, but you can pass your own opacity by setting the `overlayOpacity` property.
+
+```dart
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: LoadingOverlay(
+        overlayWidget: Center(
+          child: SpinKitCubeGrid(
+            color: Colors.red,
+            size: 50.0,
+          ),
+        ),
+        overlayOpacity: 0.8,
+        child: MyHomePage(title: 'Flutter Demo Home Page'),
+      ),
+    );
+  }
+}
+```
+
+This is a much opaque overlay:
+
+![enter image description here](https://media.giphy.com/media/StKBJJ50luIOPjDunM/giphy.gif)
+
+## Todo
+
+- [ ] Tests
+
+## Suggestions & Bugs
+
+For any suggestions or bug report please head to [issue tracker][tracker].
+
+[tracker]: https://github.com/rodrigobastosv/loading_overlay/issues
+[flutter_spinkit]: https://pub.dev/packages/flutter_spinkit
