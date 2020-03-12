@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:loadingoverlay/loading_overlay.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 
 void main() => runApp(MyApp());
 
