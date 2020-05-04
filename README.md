@@ -44,6 +44,30 @@ context.hideLoaderOverlay()
 
 ![enter image description here](https://media.giphy.com/media/IgGXIvgUtHNjWlWFQm/giphy.gif)
 
+# Basic Usage on Named Routes
+To use this package with named routes you can just wrap your MaterialApp with GlobalLoaderOverlay.
+This widget has all the features of LoaderOverlay but it is provided for all the routes of the app.
+
+
+```
+@override
+Widget build(BuildContext context) {
+return GlobalLoaderOverlay(
+  useDefaultLoading: true,
+  child: MaterialApp(
+    debugShowCheckedModeBanner: false,
+    title: 'Flutter Demo',
+    theme: ThemeData(primarySwatch: Colors.teal, fontFamily: 'Baloo'),
+    initialRoute: '/',
+    routes: {
+      '/': (context) => Page1(),
+      '/page2': (context) => Page2(),
+    },
+  ),
+);
+}
+```
+
 # Customisation
 Your overlay loader widget can be any widget you want. For example you can import the package
  ![flutter_spinkit][flutter_spinkit] and customise your widget like this. To do that just pass your widget to `overlayWidget`.
