@@ -1,3 +1,7 @@
+# 1.1.0+1
+
+- Adding documentation
+
 # 1.1.0
 
 - Adding GlobalLoaderOverlay to use named routes

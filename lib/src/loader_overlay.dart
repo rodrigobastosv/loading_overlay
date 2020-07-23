@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 
 import '../loader_overlay.dart';
 
+/// Class that efetivally display the overlay on the screen. It's a Stateful widget
+/// so we can dispose when not needed anymore
 class LoaderOverlay extends StatefulWidget {
   LoaderOverlay(
       {this.overlayWidget,
@@ -24,6 +26,7 @@ class LoaderOverlay extends StatefulWidget {
   _LoaderOverlayState createState() => _LoaderOverlayState();
 }
 
+// Has the Center CircularProgressIndicator as the default loader
 class _LoaderOverlayState extends State<LoaderOverlay> {
   @override
   void dispose() {

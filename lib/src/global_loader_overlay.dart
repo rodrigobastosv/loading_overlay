@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../loader_overlay.dart';
 
+/// Global widget that can be used to wrap the whole app
 class GlobalLoaderOverlay extends StatelessWidget {
   GlobalLoaderOverlay({
     @required this.child,
