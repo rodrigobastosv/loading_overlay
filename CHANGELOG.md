@@ -1,3 +1,7 @@
+# 1.2.0
+
+- Adding possibility to pass a widget to show underneath the loading indicator
+
 # 1.1.0+1
 
 - Adding documentation

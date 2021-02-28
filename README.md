@@ -127,6 +127,24 @@ This is a much opaque overlay:
 
 ![enter image description here](https://media.giphy.com/media/StKBJJ50luIOPjDunM/giphy.gif)
 
+Lastly you can pass some kind of a widget to be located under the loading widget. A commom use case for this is when you want to show some kind of Text to describe the state of the loading. For example you can show a String with 'Reconnecting' or 'Loading Data' under the loader.
+
+To be able to do this you can just pass a widget (commonly a Text widget) to showLoaderOverlay.
+
+```
+context.showLoaderOverlay(
+  widget: Text(
+    'Loading',
+    style: TextStyle(
+      color: Colors.red,
+    ),
+  ),
+)
+```
+
+This code produces the following result:
+![enter image description here](https://media2.giphy.com/media/3gdAn8U9YK9XtJlcVe/giphy.gif)
+
 ## Todo
 
 - [ ] Tests

@@ -49,10 +49,25 @@ class _MyHomePageState extends State<MyHomePage> {
             RaisedButton(
               onPressed: () async {
                 context.showLoaderOverlay();
-                await Future.delayed(Duration(seconds: 3));
+                await Future.delayed(Duration(seconds: 2));
                 context.hideLoaderOverlay();
               },
               child: Text('Show loader overlay for 2 seconds'),
+            ),
+            RaisedButton(
+              onPressed: () async {
+                context.showLoaderOverlay(
+                  widget: Text(
+                    'Loading',
+                    style: TextStyle(
+                      color: Colors.red,
+                    ),
+                  ),
+                );
+                await Future.delayed(Duration(seconds: 3));
+                context.hideLoaderOverlay();
+              },
+              child: Text('Show loader overlay for 2 seconds with message'),
             )
           ],
         ),

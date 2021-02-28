@@ -9,12 +9,20 @@ class OverlayControllerWidget extends InheritedWidget {
   static OverlayControllerWidget of(BuildContext context) =>
       context.findAncestorWidgetOfExactType<OverlayControllerWidget>();
 
-  final StreamController visibilityController = StreamController<bool>();
+  final StreamController visibilityController =
+      StreamController<Map<String, dynamic>>();
 
-  Stream<bool> get visibilityStream => visibilityController.stream;
+  Stream<Map<String, dynamic>> get visibilityStream => visibilityController.stream;
 
   ///Set the visibility of the overlay
-  void setOverlayVisible(bool loading) => visibilityController.add(loading);
+  void setOverlayVisible(
+    bool loading, {
+    Widget widget,
+  }) =>
+      visibilityController.add({
+        'loading': loading,
+        'widget': widget,
+      });
 
   ///Dispose the controller
   void dispose() => visibilityController.close();

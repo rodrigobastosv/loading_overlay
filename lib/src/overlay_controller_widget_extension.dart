@@ -8,7 +8,10 @@ extension OverlayControllerWidgetExtension on BuildContext {
       OverlayControllerWidget.of(this);
 
   ///Extension created to show the overlay
-  void showLoaderOverlay() => getOverlayController().setOverlayVisible(true);
+  void showLoaderOverlay({
+    Widget widget,
+  }) =>
+      getOverlayController().setOverlayVisible(true, widget: widget);
 
   ///Extension created to hide the overlay
   void hideLoaderOverlay() => getOverlayController().setOverlayVisible(false);

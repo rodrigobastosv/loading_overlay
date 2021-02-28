@@ -38,22 +38,35 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
   Widget build(BuildContext context) {
     return OverlayControllerWidget(
       child: Builder(
-        builder: (innerContext) => StreamBuilder<bool>(
+        builder: (innerContext) => StreamBuilder<Map<String, dynamic>>(
           stream: innerContext.getOverlayController().visibilityStream,
-          initialData: false,
+          initialData: <String, dynamic>{
+            'loading': false,
+            'widget': null,
+          },
           builder: (_, snapshot) {
+            final isLoading = snapshot.data['loading'] as bool;
+            final widgetOverlay = snapshot.data['widget'];
             return Stack(
               children: <Widget>[
                 widget.child,
-                snapshot.data
+                isLoading
                     ? Opacity(
-                        opacity:
-                            snapshot.data ? (widget.overlayOpacity ?? 0.4) : 0,
+                        opacity: isLoading ? (widget.overlayOpacity ?? 0.4) : 0,
                         child: Container(
                           color: widget.overlayColor,
                           child: widget.useDefaultLoading
                               ? _getDefaultLoadingWidget()
-                              : widget.overlayWidget,
+                              : Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    widget.overlayWidget,
+                                    Material(
+                                      color: Colors.transparent,
+                                      child: widgetOverlay,
+                                    ),
+                                  ],
+                                ),
                         ),
                       )
                     : SizedBox.shrink(),
