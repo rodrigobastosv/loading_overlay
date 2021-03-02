@@ -4,18 +4,18 @@ import 'overlay_controller_widget.dart';
 
 ///Just a extension to make it cleaner to show or hide the overlay
 extension OverlayControllerWidgetExtension on BuildContext {
-  @deprecated
+  @Deprecated('Use context.loaderOverlay instead')
   OverlayControllerWidget getOverlayController() => OverlayControllerWidget.of(this);
 
   ///Extension created to show the overlay
-  @deprecated
+  @Deprecated('Use context.loaderOverlay.show() instead')
   void showLoaderOverlay({
     Widget widget,
   }) =>
       getOverlayController().setOverlayVisible(true, widget: widget);
 
   ///Extension created to hide the overlay
-  @deprecated
+  @Deprecated('Use context.loaderOverlay.hide() instead')
   void hideLoaderOverlay() => getOverlayController().setOverlayVisible(false);
 
   _OverlayExtensionHelper get loaderOverlay => _OverlayExtensionHelper(OverlayControllerWidget.of(this));
