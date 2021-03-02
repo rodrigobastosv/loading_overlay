@@ -95,10 +95,7 @@ class ReconnectingOverlay extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: CircularProgressIndicator(),
-            ),
+            CircularProgressIndicator(),
             SizedBox(height: 12),
             Text(
               'Reconnecting...',
