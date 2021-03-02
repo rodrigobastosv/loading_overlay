@@ -13,6 +13,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: LoaderOverlay(
+        useDefaultLoading: false,
         overlayWidget: Center(
           child: SpinKitCubeGrid(
             color: Colors.red,
@@ -36,6 +37,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  bool _isLoaderVisible = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,30 +51,56 @@ class _MyHomePageState extends State<MyHomePage> {
           children: <Widget>[
             RaisedButton(
               onPressed: () async {
-                context.showLoaderOverlay();
+                context.loaderOverlay.show();
+                setState(() {
+                  _isLoaderVisible = context.loaderOverlay.visible;
+                });
                 await Future.delayed(Duration(seconds: 2));
-                context.hideLoaderOverlay();
+                if (_isLoaderVisible) {
+                  context.loaderOverlay.hide();
+                }
+                setState(() {
+                  _isLoaderVisible = context.loaderOverlay.visible;
+                });
               },
               child: Text('Show loader overlay for 2 seconds'),
             ),
             RaisedButton(
               onPressed: () async {
-                context.showLoaderOverlay(
-                  widget: Text(
-                    'Loading',
-                    style: TextStyle(
-                      color: Colors.red,
-                    ),
-                  ),
-                );
+                context.loaderOverlay.show(widget: ReconnectingOverlay());
+                setState(() {
+                  _isLoaderVisible = context.loaderOverlay.visible;
+                });
                 await Future.delayed(Duration(seconds: 3));
-                context.hideLoaderOverlay();
+                if (_isLoaderVisible && context.loaderOverlay.overlayWidgetType == ReconnectingOverlay) {
+                  context.loaderOverlay.hide();
+                }
+                setState(() {
+                  _isLoaderVisible = context.loaderOverlay.visible;
+                });
               },
-              child: Text('Show loader overlay for 2 seconds with message'),
-            )
+              child: Text('Show custom loader overlay for 2 seconds'),
+            ),
+            Text('Is loader visible: $_isLoaderVisible'),
           ],
         ),
       ),
     );
   }
+}
+
+class ReconnectingOverlay extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircularProgressIndicator(),
+            SizedBox(height: 12),
+            Text(
+              'Reconnecting...',
+            ),
+          ],
+        ),
+      );
 }
