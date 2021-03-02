@@ -12,14 +12,13 @@ class LoaderOverlay extends StatefulWidget {
       this.useDefaultLoading = false,
       this.overlayOpacity,
       this.overlayColor = Colors.grey,
-      @required this.child})
-      : assert(overlayWidget != null || useDefaultLoading != null),
-        assert(child != null);
+      required this.child})
+      : assert(overlayWidget != null || useDefaultLoading != null);
 
-  final Widget overlayWidget;
-  final bool useDefaultLoading;
-  final double overlayOpacity;
-  final Color overlayColor;
+  final Widget? overlayWidget;
+  final bool? useDefaultLoading;
+  final double? overlayOpacity;
+  final Color? overlayColor;
   final Widget child;
 
   @override
@@ -30,7 +29,7 @@ class LoaderOverlay extends StatefulWidget {
 class _LoaderOverlayState extends State<LoaderOverlay> {
   @override
   void dispose() {
-    context.getOverlayController().dispose();
+    context.getOverlayController()!.dispose();
     super.dispose();
   }
 
@@ -39,14 +38,14 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
     return OverlayControllerWidget(
       child: Builder(
         builder: (innerContext) => StreamBuilder<Map<String, dynamic>>(
-          stream: innerContext.getOverlayController().visibilityStream,
+          stream: innerContext.getOverlayController()!.visibilityStream,
           initialData: <String, dynamic>{
             'loading': false,
             'widget': null,
           },
           builder: (_, snapshot) {
-            final isLoading = snapshot.data['loading'] as bool;
-            final widgetOverlay = snapshot.data['widget'];
+            final isLoading = snapshot.data!['loading'] as bool;
+            final widgetOverlay = snapshot.data!['widget'];
             return Stack(
               children: <Widget>[
                 widget.child,
@@ -55,12 +54,12 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
                         opacity: isLoading ? (widget.overlayOpacity ?? 0.4) : 0,
                         child: Container(
                           color: widget.overlayColor,
-                          child: widget.useDefaultLoading
+                          child: widget.useDefaultLoading!
                               ? _getDefaultLoadingWidget()
                               : Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    widget.overlayWidget,
+                                    widget.overlayWidget!,
                                     Material(
                                       color: Colors.transparent,
                                       child: widgetOverlay,

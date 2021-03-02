@@ -4,15 +4,15 @@ import 'overlay_controller_widget.dart';
 
 ///Just a extension to make it cleaner to show or hide the overlay
 extension OverlayControllerWidgetExtension on BuildContext {
-  OverlayControllerWidget getOverlayController() =>
+  OverlayControllerWidget? getOverlayController() =>
       OverlayControllerWidget.of(this);
 
   ///Extension created to show the overlay
   void showLoaderOverlay({
-    Widget widget,
+    Widget? widget,
   }) =>
-      getOverlayController().setOverlayVisible(true, widget: widget);
+      getOverlayController()!.setOverlayVisible(true, widget: widget);
 
   ///Extension created to hide the overlay
-  void hideLoaderOverlay() => getOverlayController().setOverlayVisible(false);
+  void hideLoaderOverlay() => getOverlayController()!.setOverlayVisible(false);
 }

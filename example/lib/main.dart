@@ -46,7 +46,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            RaisedButton(
+            ElevatedButton(
               onPressed: () async {
                 context.showLoaderOverlay();
                 await Future.delayed(Duration(seconds: 2));
@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: Text('Show loader overlay for 2 seconds'),
             ),
-            RaisedButton(
+            ElevatedButton(
               onPressed: () async {
                 context.showLoaderOverlay(
                   widget: Text(

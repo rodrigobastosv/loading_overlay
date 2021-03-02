@@ -5,19 +5,19 @@ import '../loader_overlay.dart';
 /// Global widget that can be used to wrap the whole app
 class GlobalLoaderOverlay extends StatelessWidget {
   GlobalLoaderOverlay({
-    @required this.child,
+    required this.child,
     this.useDefaultLoading,
     this.overlayColor,
     this.overlayOpacity,
     this.overlayWidget,
     this.textDirection = TextDirection.ltr,
-  }) : assert(child != null);
+  });
 
   final Widget child;
-  final bool useDefaultLoading;
-  final Color overlayColor;
-  final double overlayOpacity;
-  final Widget overlayWidget;
+  final bool? useDefaultLoading;
+  final Color? overlayColor;
+  final double? overlayOpacity;
+  final Widget? overlayWidget;
   final TextDirection textDirection;
 
   @override

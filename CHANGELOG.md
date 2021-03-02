@@ -1,3 +1,7 @@
+# 2.0.0-nullsafety.0
+
+- Migrating package to null safety
+
 # 1.2.0
 
 - Adding possibility to pass a widget to show underneath the loading indicator
