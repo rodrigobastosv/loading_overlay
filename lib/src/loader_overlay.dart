@@ -7,14 +7,13 @@ import '../loader_overlay.dart';
 /// Class that efetivally display the overlay on the screen. It's a Stateful widget
 /// so we can dispose when not needed anymore
 class LoaderOverlay extends StatefulWidget {
-  LoaderOverlay(
+  const LoaderOverlay(
       {this.overlayWidget,
-      this.useDefaultLoading = false,
+      this.useDefaultLoading = true,
       this.overlayOpacity,
       this.overlayColor = Colors.grey,
       @required this.child})
-      : assert(overlayWidget != null || useDefaultLoading != null),
-        assert(child != null);
+      : assert(child != null);
 
   final Widget overlayWidget;
   final bool useDefaultLoading;
@@ -30,7 +29,7 @@ class LoaderOverlay extends StatefulWidget {
 class _LoaderOverlayState extends State<LoaderOverlay> {
   @override
   void dispose() {
-    context.getOverlayController().dispose();
+    context.loaderOverlay.overlayController.dispose();
     super.dispose();
   }
 
@@ -39,14 +38,14 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
     return OverlayControllerWidget(
       child: Builder(
         builder: (innerContext) => StreamBuilder<Map<String, dynamic>>(
-          stream: innerContext.getOverlayController().visibilityStream,
-          initialData: <String, dynamic>{
+          stream: innerContext.loaderOverlay.overlayController.visibilityStream,
+          initialData: const <String, dynamic>{
             'loading': false,
             'widget': null,
           },
           builder: (_, snapshot) {
             final isLoading = snapshot.data['loading'] as bool;
-            final widgetOverlay = snapshot.data['widget'];
+            final widgetOverlay = snapshot.data['widget'] as Widget;
             return Stack(
               children: <Widget>[
                 widget.child,
@@ -55,21 +54,14 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
                         opacity: isLoading ? (widget.overlayOpacity ?? 0.4) : 0,
                         child: Container(
                           color: widget.overlayColor,
-                          child: widget.useDefaultLoading
-                              ? _getDefaultLoadingWidget()
-                              : Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    widget.overlayWidget,
-                                    Material(
-                                      color: Colors.transparent,
-                                      child: widgetOverlay,
-                                    ),
-                                  ],
-                                ),
+                          child: widgetOverlay != null
+                              ? _widgetOverlay(widgetOverlay)
+                              : widget.useDefaultLoading
+                                  ? _getDefaultLoadingWidget()
+                                  : widget.overlayWidget,
                         ),
                       )
-                    : SizedBox.shrink(),
+                    : const SizedBox.shrink(),
               ],
             );
           },
@@ -78,7 +70,16 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
     );
   }
 
-  Widget _getDefaultLoadingWidget() => Center(
+  Widget _widgetOverlay(Widget widget) => SizedBox(
+        height: double.infinity,
+        width: double.infinity,
+        child: Material(
+          color: Colors.transparent,
+          child: widget,
+        ),
+      );
+
+  Widget _getDefaultLoadingWidget() => const Center(
         child: CircularProgressIndicator(),
       );
 }

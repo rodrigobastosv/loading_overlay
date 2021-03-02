@@ -4,7 +4,7 @@ Have you ever found yourself in the situation of doing some async processing you
 
 # Basic Usage
 
-The most simple usage is just wrap the widget that you want an overlay on LoaderOverlay with the useDefaultLoader set to true.
+The most simple usage is just wrap the widget that you want an overlay on LoaderOverlay. Default loader will be shown.
 
 ```dart
 class MyApp extends StatelessWidget {
@@ -16,7 +16,6 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: LoaderOverlay(
-        useDefaultLoader: true,
         child: MyHomePage(title: 'Flutter Demo Home Page'),
       ),
     );
@@ -28,17 +27,30 @@ This simple step will already configure the loader overlay for use.
 
 After that configuration you can just run the command:
 
-```
-context.showLoaderOverlay()
+```dart
+context.loaderOverlay.show()
 ```
 
 This will show the overlay with the default loading indicator. The default loading configured is to just show a centered CircularProgressIndicator
 
 To hide the overlay (after the async processing, for example), just run the command:
 
+```dart
+context.loaderOverlay.hide()
 ```
-context.hideLoaderOverlay()
+
+You can check if overlay is visible:
+
+```dart
+final isVisible = context.loaderOverlay.visible
 ```
+
+And get the type of overlay widget:
+
+```dart
+final type = context.loaderOverlay.overlayWidgetType
+```
+
 
 *Note: You will always need the context to show or hide the loader overlay
 
@@ -49,11 +61,10 @@ To use this package with named routes you can just wrap your MaterialApp with Gl
 This widget has all the features of LoaderOverlay but it is provided for all the routes of the app.
 
 
-```
+```dart
 @override
 Widget build(BuildContext context) {
 return GlobalLoaderOverlay(
-  useDefaultLoading: true,
   child: MaterialApp(
     debugShowCheckedModeBanner: false,
     title: 'Flutter Demo',
@@ -70,7 +81,7 @@ return GlobalLoaderOverlay(
 
 # Customisation
 Your overlay loader widget can be any widget you want. For example you can import the package
- ![flutter_spinkit][flutter_spinkit] and customise your widget like this. To do that just pass your widget to `overlayWidget`.
+ ![flutter_spinkit][flutter_spinkit] and customise your widget like this. To do that just pass your widget to `overlayWidget` and set `useDefaultLoading` to `false`.
 
 ```dart
 class MyApp extends StatelessWidget {
@@ -82,6 +93,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: LoaderOverlay(
+        useDefaultLoading: false,
         overlayWidget: Center(
           child: SpinKitCubeGrid(
             color: Colors.red,
@@ -109,6 +121,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: LoaderOverlay(
+        useDefaultLoading: false,
         overlayWidget: Center(
           child: SpinKitCubeGrid(
             color: Colors.red,
@@ -127,23 +140,42 @@ This is a much opaque overlay:
 
 ![enter image description here](https://media.giphy.com/media/StKBJJ50luIOPjDunM/giphy.gif)
 
-Lastly you can pass some kind of a widget to be located under the loading widget. A commom use case for this is when you want to show some kind of Text to describe the state of the loading. For example you can show a String with 'Reconnecting' or 'Loading Data' under the loader.
+You may want to have several different loaders in your app. In this case just pass any widget to the `loaderOverlay.show`:
 
-To be able to do this you can just pass a widget (commonly a Text widget) to showLoaderOverlay.
+```dart
+class ReconnectingOverlay extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: CircularProgressIndicator(),
+            ),
+            SizedBox(height: 12),
+            Text(
+              'Reconnecting...',
+            ),
+          ],
+        ),
+      );
+}
 
+context.loaderOverlay.show(
+  widget: ReconnectingOverlay()
+),
 ```
-context.showLoaderOverlay(
-  widget: Text(
-    'Loading',
-    style: TextStyle(
-      color: Colors.red,
-    ),
-  ),
-)
+
+And then you can check the type before hide it:
+
+```dart
+if (context.loaderOverlay.visible && context.loaderOverlay.overlayWidgetType == ReconnectingOverlay) {
+  context.loaderOverlay.hide();
+}
 ```
 
-This code produces the following result:
-![enter image description here](https://media2.giphy.com/media/3gdAn8U9YK9XtJlcVe/giphy.gif)
+If you pass widget to `context.loaderOverlay.show`, then `defaultLoader` and `widgetOverlay` will be ignored;
 
 ## Todo
 
