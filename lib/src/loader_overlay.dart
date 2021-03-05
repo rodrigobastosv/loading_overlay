@@ -12,13 +12,12 @@ class LoaderOverlay extends StatefulWidget {
       this.useDefaultLoading = true,
       this.overlayOpacity,
       this.overlayColor = Colors.grey,
-      @required this.child})
-      : assert(child != null);
+      required this.child})
 
-  final Widget overlayWidget;
-  final bool useDefaultLoading;
-  final double overlayOpacity;
-  final Color overlayColor;
+  final Widget? overlayWidget;
+  final bool? useDefaultLoading;
+  final double? overlayOpacity;
+  final Color? overlayColor;
   final Widget child;
 
   @override

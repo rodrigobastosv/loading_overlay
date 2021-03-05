@@ -1,3 +1,7 @@
+# 2.0.0
+
+- Migrating package to null safety
+
 # 1.2.1
  - `context.showLoaderOverlay` and `context.hideLoaderOverlay` marked as depricated. You should use `context.loaderOverlay.show` and `context.loaderOverlay.hide`
  - widget that you pass to `context.loaderOverlay.show` will be shown instead of `widgetOverlay`

@@ -10,9 +10,9 @@ extension OverlayControllerWidgetExtension on BuildContext {
   ///Extension created to show the overlay
   @Deprecated('Use context.loaderOverlay.show() instead')
   void showLoaderOverlay({
-    Widget widget,
+    Widget? widget,
   }) =>
-      getOverlayController().setOverlayVisible(true, widget: widget);
+      getOverlayController()!.setOverlayVisible(true, widget: widget);
 
   ///Extension created to hide the overlay
   @Deprecated('Use context.loaderOverlay.hide() instead')
