@@ -7,15 +7,16 @@ import '../loader_overlay.dart';
 /// Class that efetivally display the overlay on the screen. It's a Stateful widget
 /// so we can dispose when not needed anymore
 class LoaderOverlay extends StatefulWidget {
-  const LoaderOverlay(
-      {this.overlayWidget,
-      this.useDefaultLoading = true,
-      this.overlayOpacity,
-      this.overlayColor = Colors.grey,
-      required this.child})
+  const LoaderOverlay({
+    this.overlayWidget,
+    this.useDefaultLoading = true,
+    this.overlayOpacity,
+    this.overlayColor = Colors.grey,
+    required this.child,
+  });
 
   final Widget? overlayWidget;
-  final bool? useDefaultLoading;
+  final bool useDefaultLoading;
   final double? overlayOpacity;
   final Color? overlayColor;
   final Widget child;
@@ -43,8 +44,8 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
             'widget': null,
           },
           builder: (_, snapshot) {
-            final isLoading = snapshot.data['loading'] as bool;
-            final widgetOverlay = snapshot.data['widget'] as Widget;
+            final isLoading = snapshot.data!['loading'] as bool;
+            final widgetOverlay = snapshot.data!['widget'] as Widget?;
             return Stack(
               children: <Widget>[
                 widget.child,

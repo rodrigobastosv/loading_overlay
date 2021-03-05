@@ -11,7 +11,7 @@ class OverlayControllerWidget extends InheritedWidget {
 
   final StreamController<Map<String, dynamic>> visibilityController = StreamController();
 
-  Stream<Map<String, dynamic>> get visibilityStream => visibilityController.stream as Stream<Map<String, dynamic>>;
+  Stream<Map<String, dynamic>> get visibilityStream => visibilityController.stream;
 
   ///Set the visibility of the overlay
   void setOverlayVisible(

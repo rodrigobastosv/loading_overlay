@@ -6,7 +6,7 @@ import '../loader_overlay.dart';
 class GlobalLoaderOverlay extends StatelessWidget {
   GlobalLoaderOverlay({
     required this.child,
-    this.useDefaultLoading,
+    this.useDefaultLoading = true,
     this.overlayColor,
     this.overlayOpacity,
     this.overlayWidget,
@@ -14,7 +14,7 @@ class GlobalLoaderOverlay extends StatelessWidget {
   });
 
   final Widget child;
-  final bool? useDefaultLoading;
+  final bool useDefaultLoading;
   final Color? overlayColor;
   final double? overlayOpacity;
   final Widget? overlayWidget;
