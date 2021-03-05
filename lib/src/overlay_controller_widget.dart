@@ -9,8 +9,7 @@ class OverlayControllerWidget extends InheritedWidget {
   static OverlayControllerWidget? of(BuildContext context) =>
       context.findAncestorWidgetOfExactType<OverlayControllerWidget>();
 
-  final StreamController visibilityController =
-      StreamController<Map<String, dynamic>>();
+  final StreamController<Map<String, dynamic>> visibilityController = StreamController();
 
   Stream<Map<String, dynamic>> get visibilityStream => visibilityController.stream as Stream<Map<String, dynamic>>;
 
@@ -19,7 +18,7 @@ class OverlayControllerWidget extends InheritedWidget {
     bool loading, {
     Widget? widget,
   }) =>
-      visibilityController.add({
+      visibilityController.add(<String, dynamic>{
         'loading': loading,
         'widget': widget,
       });
