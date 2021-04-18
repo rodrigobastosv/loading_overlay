@@ -27,9 +27,19 @@ class LoaderOverlay extends StatefulWidget {
 
 // Has the Center CircularProgressIndicator as the default loader
 class _LoaderOverlayState extends State<LoaderOverlay> {
+  OverlayControllerWidget? _overlayControllerWidget;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    setState(() {
+      _overlayControllerWidget = OverlayControllerWidget.of(context);
+    });
+  }
+
   @override
   void dispose() {
-    context.loaderOverlay.overlayController.dispose();
+    _overlayControllerWidget?.dispose();
     super.dispose();
   }
 
