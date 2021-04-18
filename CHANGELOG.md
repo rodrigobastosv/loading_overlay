@@ -1,3 +1,7 @@
+# 2.0.1
+
+- Fix to avoid looking deactivated widgets
+
 # 2.0.0
 
 - Migrating package to null safety
