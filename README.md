@@ -81,7 +81,7 @@ return GlobalLoaderOverlay(
 
 # Customisation
 Your overlay loader widget can be any widget you want. For example you can import the package
- ![flutter_spinkit][flutter_spinkit] and customise your widget like this. To do that just pass your widget to `overlayWidget` and set `useDefaultLoading` to `false`.
+ `flutter_spinkit` and customise your widget like this. To do that just pass your widget to `overlayWidget` and set `useDefaultLoading` to `false`.
 
 ```dart
 class MyApp extends StatelessWidget {

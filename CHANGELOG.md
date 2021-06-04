@@ -1,3 +1,7 @@
+# 2.0.1+1
+
+- Adding GlobalLoaderOverlay use as example on the example project
+
 # 2.0.1
 
 - Fix to avoid looking deactivated widgets

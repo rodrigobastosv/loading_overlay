@@ -27,6 +27,46 @@ class MyApp extends StatelessWidget {
   }
 }
 
+class MyAppGlobalLoaderOverlay extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GlobalLoaderOverlay(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primaryColor: Colors.black,
+          fontFamily: 'Baloo',
+        ),
+        initialRoute: '/',
+        routes: {
+          '/': (context) => Page1(),
+        },
+      ),
+    );
+  }
+}
+
+class Page1 extends StatefulWidget {
+  Page1({Key key}) : super(key: key);
+
+  @override
+  _Page1State createState() => _Page1State();
+}
+
+class _Page1State extends State<Page1> {
+  @override
+  void initState() {
+    context.loaderOverlay.show();
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold();
+  }
+}
+
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key key, this.title}) : super(key: key);
 
@@ -72,7 +112,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   _isLoaderVisible = context.loaderOverlay.visible;
                 });
                 await Future.delayed(Duration(seconds: 3));
-                if (_isLoaderVisible && context.loaderOverlay.overlayWidgetType == ReconnectingOverlay) {
+                if (_isLoaderVisible &&
+                    context.loaderOverlay.overlayWidgetType ==
+                        ReconnectingOverlay) {
                   context.loaderOverlay.hide();
                 }
                 setState(() {
