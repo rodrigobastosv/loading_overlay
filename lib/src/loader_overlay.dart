@@ -59,19 +59,21 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
             return Stack(
               children: <Widget>[
                 widget.child,
-                isLoading
-                    ? Opacity(
-                        opacity: isLoading ? (widget.overlayOpacity ?? 0.4) : 0,
-                        child: Container(
-                          color: widget.overlayColor,
-                          child: widgetOverlay != null
-                              ? _widgetOverlay(widgetOverlay)
-                              : widget.useDefaultLoading
-                                  ? _getDefaultLoadingWidget()
-                                  : widget.overlayWidget,
-                        ),
-                      )
-                    : const SizedBox.shrink(),
+                if (isLoading) ...[
+                  Opacity(
+                    opacity: isLoading ? (widget.overlayOpacity ?? 0.4) : 0,
+                    child: Container(
+                      color: widget.overlayColor,
+                    ),
+                  ),
+                  if (widgetOverlay != null)
+                    _widgetOverlay(widgetOverlay)
+                  else
+                    widget.useDefaultLoading
+                        ? _getDefaultLoadingWidget()
+                        : widget.overlayWidget!,
+                ] else
+                  const SizedBox.shrink(),
               ],
             );
           },
