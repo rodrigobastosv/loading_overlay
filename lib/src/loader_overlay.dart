@@ -9,9 +9,9 @@ import '../loader_overlay.dart';
 class LoaderOverlay extends StatefulWidget {
   const LoaderOverlay({
     this.overlayWidget,
-    this.useDefaultLoading = true,
+    this.useDefaultLoading = useDefaultLoadingValue,
     this.overlayOpacity,
-    this.overlayColor = Colors.grey,
+    this.overlayColor = defaultOverlayColor,
     required this.child,
   });
 
@@ -20,6 +20,21 @@ class LoaderOverlay extends StatefulWidget {
   final double? overlayOpacity;
   final Color? overlayColor;
   final Widget child;
+
+  static const _prefix = '@loader-overlay';
+
+  static const defaultOverlayWidgetKey = Key('$_prefix/default-widget');
+
+  static const opacityWidgetKey = Key('$_prefix/opacity-widget');
+
+  static const defaultOpacityValue = 0.4;
+
+  static const defaultOverlayColor = Colors.grey;
+
+  static const containerForOverlayColorKey =
+      Key('$_prefix/container-for-overlay-color');
+
+  static const useDefaultLoadingValue = true;
 
   @override
   _LoaderOverlayState createState() => _LoaderOverlayState();
@@ -61,8 +76,13 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
                 widget.child,
                 if (isLoading) ...[
                   Opacity(
-                    opacity: isLoading ? (widget.overlayOpacity ?? 0.4) : 0,
+                    key: LoaderOverlay.opacityWidgetKey,
+                    opacity: isLoading
+                        ? (widget.overlayOpacity ??
+                            LoaderOverlay.defaultOpacityValue)
+                        : 0,
                     child: Container(
+                      key: LoaderOverlay.containerForOverlayColorKey,
                       color: widget.overlayColor,
                     ),
                   ),
@@ -92,6 +112,8 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
       );
 
   Widget _getDefaultLoadingWidget() => const Center(
-        child: CircularProgressIndicator(),
+        child: CircularProgressIndicator(
+          key: LoaderOverlay.defaultOverlayWidgetKey,
+        ),
       );
 }
