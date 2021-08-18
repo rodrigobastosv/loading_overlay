@@ -9,9 +9,11 @@ class OverlayControllerWidget extends InheritedWidget {
   static OverlayControllerWidget? of(BuildContext context) =>
       context.findAncestorWidgetOfExactType<OverlayControllerWidget>();
 
-  final StreamController<Map<String, dynamic>> visibilityController = StreamController();
+  final StreamController<Map<String, dynamic>> visibilityController =
+      StreamController();
 
-  Stream<Map<String, dynamic>> get visibilityStream => visibilityController.stream;
+  Stream<Map<String, dynamic>> get visibilityStream =>
+      visibilityController.stream;
 
   ///Set the visibility of the overlay
   void setOverlayVisible(

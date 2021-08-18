@@ -1,7 +1,11 @@
+# 2.0.2+1
+
+- Formatting file according to dartfmt
+ 
 # 2.0.2
 
 - Fixing overlayWidget underneath the screen overlay
-- 
+
 # 2.0.1+1
 
 - Adding GlobalLoaderOverlay use as example on the example project
