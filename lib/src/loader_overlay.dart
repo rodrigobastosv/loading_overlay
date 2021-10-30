@@ -11,7 +11,7 @@ class LoaderOverlay extends StatefulWidget {
     this.overlayWidget,
     this.useDefaultLoading = useDefaultLoadingValue,
     this.overlayOpacity,
-    this.overlayColor = defaultOverlayColor,
+    this.overlayColor,
     required this.child,
   });
 
@@ -83,7 +83,7 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
                         : 0,
                     child: Container(
                       key: LoaderOverlay.containerForOverlayColorKey,
-                      color: widget.overlayColor,
+                      color: widget.overlayColor ?? LoaderOverlay.defaultOverlayColor,
                     ),
                   ),
                   if (widgetOverlay != null)
