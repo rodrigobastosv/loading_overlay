@@ -12,6 +12,7 @@ class LoaderOverlay extends StatefulWidget {
     this.useDefaultLoading = useDefaultLoadingValue,
     this.overlayOpacity,
     this.overlayColor,
+    this.disableBackButton = true,
     required this.child,
   });
 
@@ -19,6 +20,7 @@ class LoaderOverlay extends StatefulWidget {
   final bool useDefaultLoading;
   final double? overlayOpacity;
   final Color? overlayColor;
+  final bool disableBackButton;
   final Widget child;
 
   static const _prefix = '@loader-overlay';
@@ -74,25 +76,9 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
             return Stack(
               children: <Widget>[
                 widget.child,
-                if (isLoading) ...[
-                  Opacity(
-                    key: LoaderOverlay.opacityWidgetKey,
-                    opacity: isLoading
-                        ? (widget.overlayOpacity ??
-                            LoaderOverlay.defaultOpacityValue)
-                        : 0,
-                    child: Container(
-                      key: LoaderOverlay.containerForOverlayColorKey,
-                      color: widget.overlayColor ?? LoaderOverlay.defaultOverlayColor,
-                    ),
-                  ),
-                  if (widgetOverlay != null)
-                    _widgetOverlay(widgetOverlay)
-                  else
-                    widget.useDefaultLoading
-                        ? _getDefaultLoadingWidget()
-                        : widget.overlayWidget!,
-                ] else
+                if (isLoading)
+                  ..._getLoadingWidget(isLoading, widgetOverlay)
+                else
                   const SizedBox.shrink(),
               ],
             );
@@ -101,6 +87,28 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
       ),
     );
   }
+
+  List<Widget> _getLoadingWidget(bool isLoading, Widget? widgetOverlay) => [
+        WillPopScope(
+          onWillPop: () async => !widget.disableBackButton,
+          child: Opacity(
+            key: LoaderOverlay.opacityWidgetKey,
+            opacity: isLoading
+                ? (widget.overlayOpacity ?? LoaderOverlay.defaultOpacityValue)
+                : 0,
+            child: Container(
+              key: LoaderOverlay.containerForOverlayColorKey,
+              color: widget.overlayColor ?? LoaderOverlay.defaultOverlayColor,
+            ),
+          ),
+        ),
+        if (widgetOverlay != null)
+          _widgetOverlay(widgetOverlay)
+        else
+          widget.useDefaultLoading
+              ? _getDefaultLoadingWidget()
+              : widget.overlayWidget!,
+      ];
 
   Widget _widgetOverlay(Widget widget) => SizedBox(
         height: double.infinity,
