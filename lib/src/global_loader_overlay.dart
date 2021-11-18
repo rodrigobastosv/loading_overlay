@@ -10,6 +10,7 @@ class GlobalLoaderOverlay extends StatelessWidget {
     this.overlayColor,
     this.overlayOpacity,
     this.overlayWidget,
+    this.disableBackButton = true,
     this.textDirection = TextDirection.ltr,
   });
 
@@ -18,6 +19,7 @@ class GlobalLoaderOverlay extends StatelessWidget {
   final Color? overlayColor;
   final double? overlayOpacity;
   final Widget? overlayWidget;
+  final bool disableBackButton;
   final TextDirection textDirection;
 
   @override
@@ -29,6 +31,7 @@ class GlobalLoaderOverlay extends StatelessWidget {
         overlayColor: overlayColor,
         overlayOpacity: overlayOpacity,
         overlayWidget: overlayWidget,
+        disableBackButton: disableBackButton,
         child: child,
       ),
     );

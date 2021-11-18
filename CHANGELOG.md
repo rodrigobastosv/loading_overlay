@@ -1,3 +1,7 @@
+# 2.0.3
+
+- Adding possibility to prevent back button action
+
 # 2.0.2+1
 
 - Formatting file according to dartfmt
