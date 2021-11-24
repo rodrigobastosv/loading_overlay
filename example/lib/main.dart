@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
         overlayOpacity: 0.8,
-        child: MyHomePage(title: 'Flutter Demo Home Page'),
+        child: MyHomePage(),
       ),
     );
   }
@@ -40,37 +40,15 @@ class MyAppGlobalLoaderOverlay extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => Page1(),
+          '/': (context) => MyHomePage(),
         },
       ),
     );
   }
 }
 
-class Page1 extends StatefulWidget {
-  Page1({Key key}) : super(key: key);
-
-  @override
-  _Page1State createState() => _Page1State();
-}
-
-class _Page1State extends State<Page1> {
-  @override
-  void initState() {
-    context.loaderOverlay.show();
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
-  }
-}
-
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-
-  final String title;
+  MyHomePage({Key? key}) : super(key: key);
 
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -82,9 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,

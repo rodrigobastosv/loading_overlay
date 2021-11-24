@@ -1,5 +1,6 @@
 library loader_overlay;
 
+import 'package:back_button_interceptor/back_button_interceptor.dart';
 import 'package:flutter/material.dart';
 
 import '../loader_overlay.dart';
@@ -57,7 +58,12 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
   @override
   void dispose() {
     _overlayControllerWidget?.dispose();
+    BackButtonInterceptor.remove(myInterceptor);
     super.dispose();
+  }
+
+  bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    return widget.disableBackButton;
   }
 
   @override
@@ -73,6 +79,13 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
           builder: (_, snapshot) {
             final isLoading = snapshot.data!['loading'] as bool;
             final widgetOverlay = snapshot.data!['widget'] as Widget?;
+
+            if (isLoading) {
+              BackButtonInterceptor.add(myInterceptor);
+            } else {
+              BackButtonInterceptor.remove(myInterceptor);
+            }
+
             return Stack(
               children: <Widget>[
                 widget.child,

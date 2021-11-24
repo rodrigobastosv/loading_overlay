@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../loader_overlay.dart';
 
 /// Global widget that can be used to wrap the whole app
-class GlobalLoaderOverlay extends StatelessWidget {
+class GlobalLoaderOverlay extends StatefulWidget {
   GlobalLoaderOverlay({
     required this.child,
     this.useDefaultLoading = true,
@@ -23,16 +23,23 @@ class GlobalLoaderOverlay extends StatelessWidget {
   final TextDirection textDirection;
 
   @override
+  _GlobalLoaderOverlayState createState() => _GlobalLoaderOverlayState();
+}
+
+class _GlobalLoaderOverlayState extends State<GlobalLoaderOverlay> {
+  
+
+  @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: textDirection,
+      textDirection: widget.textDirection,
       child: LoaderOverlay(
-        useDefaultLoading: useDefaultLoading,
-        overlayColor: overlayColor,
-        overlayOpacity: overlayOpacity,
-        overlayWidget: overlayWidget,
-        disableBackButton: disableBackButton,
-        child: child,
+        useDefaultLoading: widget.useDefaultLoading,
+        overlayColor: widget.overlayColor,
+        overlayOpacity: widget.overlayOpacity,
+        overlayWidget: widget.overlayWidget,
+        disableBackButton: widget.disableBackButton,
+        child: widget.child,
       ),
     );
   }

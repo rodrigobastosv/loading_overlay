@@ -1,3 +1,7 @@
+# 2.0.4
+
+- Add fix on prevent back button action while using named routes
+
 # 2.0.3
 
 - Adding possibility to prevent back button action
