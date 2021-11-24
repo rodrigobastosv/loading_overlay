@@ -1,3 +1,7 @@
+# 2.0.4+1
+
+- Adjusting README
+
 # 2.0.4
 
 - Add fix on prevent back button action while using named routes
