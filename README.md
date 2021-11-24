@@ -1,3 +1,5 @@
+<a href="https://www.buymeacoffee.com/rodrigobastosv" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
 #  Introduction
 
 Have you ever found yourself in the situation of doing some async processing your screen and wanting to prevent the user from interacting with the screen while the application is loading? If so, this package was made just for you.
@@ -79,7 +81,7 @@ return GlobalLoaderOverlay(
 }
 ```
 
-# Customisation
+# Customization
 Your overlay loader widget can be any widget you want. For example you can import the package
  `flutter_spinkit` and customise your widget like this. To do that just pass your widget to `overlayWidget` and set `useDefaultLoading` to `false`.
 
