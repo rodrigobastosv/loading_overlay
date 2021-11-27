@@ -27,8 +27,6 @@ class GlobalLoaderOverlay extends StatefulWidget {
 }
 
 class _GlobalLoaderOverlayState extends State<GlobalLoaderOverlay> {
-  
-
   @override
   Widget build(BuildContext context) {
     return Directionality(

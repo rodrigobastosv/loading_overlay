@@ -1,3 +1,7 @@
+# 2.0.4+2
+
+- Formatting files
+
 # 2.0.4+1
 
 - Adjusting README
