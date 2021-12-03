@@ -4,7 +4,8 @@ import '../loader_overlay.dart';
 
 /// Global widget that can be used to wrap the whole app
 class GlobalLoaderOverlay extends StatefulWidget {
-  GlobalLoaderOverlay({
+  const GlobalLoaderOverlay({
+    Key? key,
     required this.child,
     this.useDefaultLoading = true,
     this.overlayColor,
@@ -12,7 +13,7 @@ class GlobalLoaderOverlay extends StatefulWidget {
     this.overlayWidget,
     this.disableBackButton = true,
     this.textDirection = TextDirection.ltr,
-  });
+  }) : super(key: key);
 
   final Widget child;
   final bool useDefaultLoading;

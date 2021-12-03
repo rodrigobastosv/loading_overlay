@@ -4,7 +4,7 @@ import 'package:loader_overlay/loader_overlay.dart';
 
 void main() {
   testWidgets('default properties', (WidgetTester tester) async {
-    await tester.pumpWidget(TestApp());
+    await tester.pumpWidget(const TestApp());
 
     expect(
       find.byKey(LoaderOverlay.defaultOverlayWidgetKey, skipOffstage: false),
@@ -176,7 +176,7 @@ void main() {
     const overlayOpacity = 0.8;
 
     await tester.pumpWidget(
-      TestApp(
+      const TestApp(
         overlayOpacity: overlayOpacity,
         overlayColor: overlayColor,
       ),
@@ -276,7 +276,7 @@ class TestApp extends StatelessWidget {
 
               context.loaderOverlay.hide();
             },
-            icon: Icon(Icons.add),
+            icon: const Icon(Icons.add),
           ),
         ),
       ),

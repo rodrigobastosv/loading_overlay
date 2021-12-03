@@ -4,7 +4,10 @@ import 'package:flutter/cupertino.dart';
 
 ///The inherited widget that guarantees the behavior of the overlay
 class OverlayControllerWidget extends InheritedWidget {
-  OverlayControllerWidget({required Widget child}) : super(child: child);
+  OverlayControllerWidget({
+    Key? key,
+    required Widget child,
+  }) : super(key: key, child: child);
 
   static OverlayControllerWidget? of(BuildContext context) =>
       context.findAncestorWidgetOfExactType<OverlayControllerWidget>();

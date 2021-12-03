@@ -9,13 +9,14 @@ import '../loader_overlay.dart';
 /// so we can dispose when not needed anymore
 class LoaderOverlay extends StatefulWidget {
   const LoaderOverlay({
+    Key? key,
     this.overlayWidget,
     this.useDefaultLoading = useDefaultLoadingValue,
     this.overlayOpacity,
     this.overlayColor,
     this.disableBackButton = true,
     required this.child,
-  });
+  }) : super(key: key);
 
   final Widget? overlayWidget;
   final bool useDefaultLoading;
