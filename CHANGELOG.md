@@ -1,3 +1,7 @@
+# 2.0.4+3
+
+- Adding flutter_lints
+
 # 2.0.4+2
 
 - Formatting files
