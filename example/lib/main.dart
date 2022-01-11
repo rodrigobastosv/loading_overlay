@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
             size: 50.0,
           ),
         ),
+        overlayColor: Colors.black,
         overlayOpacity: 0.8,
         child: MyHomePage(),
       ),
@@ -120,4 +121,39 @@ class ReconnectingOverlay extends StatelessWidget {
           ],
         ),
       );
+}
+
+class PartScreenOverlay extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: LoaderOverlay(
+        useDefaultLoading: false,
+        overlayWidget: Center(
+          child: SpinKitCubeGrid(
+            color: Colors.red,
+            size: 50.0,
+          ),
+        ),
+        overlayOpacity: 0.8,
+        overlayWholeScreen: false,
+        overlayHeight: 100,
+        overlayWidth: 100,
+        child: Scaffold(
+          body: Center(
+            child: ElevatedButton(
+              child: Text('aaaaa'),
+              onPressed: () {
+                context.loaderOverlay.show();
+              },
+            ),
+          ),
+        ),
+      ),
+    );
+  }
 }

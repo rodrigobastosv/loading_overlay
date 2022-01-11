@@ -1,3 +1,7 @@
+# 2.0.5
+
+- Adding possibility to overlay only one part of the screen (https://github.com/rodrigobastosv/loading_overlay/issues/27)
+
 # 2.0.4+3
 
 - Adding flutter_lints

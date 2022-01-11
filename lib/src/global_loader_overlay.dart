@@ -15,12 +15,26 @@ class GlobalLoaderOverlay extends StatefulWidget {
     this.textDirection = TextDirection.ltr,
   }) : super(key: key);
 
+  /// The child that will have the overlay upon
   final Widget child;
+
+  /// Whether to use or not the default loading
   final bool useDefaultLoading;
+
+  /// The color of the overlay
   final Color? overlayColor;
+
+  /// The opacity of the overlay
   final double? overlayOpacity;
+
+  /// The widget of the overlay. This is great if you want to insert your own widget to serve as
+  /// an overlay.
   final Widget? overlayWidget;
+
+  /// Whether or not to disable the back button while loading.
   final bool disableBackButton;
+
+  /// TextDirection of the app. This is generaly used when putting [LoaderOverlay] above MaterialApp.
   final TextDirection textDirection;
 
   @override

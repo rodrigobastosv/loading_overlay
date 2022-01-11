@@ -15,14 +15,40 @@ class LoaderOverlay extends StatefulWidget {
     this.overlayOpacity,
     this.overlayColor,
     this.disableBackButton = true,
+    this.overlayWholeScreen = true,
+    this.overlayHeight,
+    this.overlayWidth,
     required this.child,
   }) : super(key: key);
 
+  /// The widget of the overlay. This is great if you want to insert your own widget to serve as
+  /// an overlay.
   final Widget? overlayWidget;
+
+  /// Whether or not to use a default loading if none is provided.
   final bool useDefaultLoading;
+
+  /// The opacity of the overlay
   final double? overlayOpacity;
+
+  /// The color of the overlay
   final Color? overlayColor;
+
+  /// Whether or not to disable the back button while loading.
   final bool disableBackButton;
+
+  /// This should be false if you want to have full control of the size of the overlay.
+  /// This is generaly used in conjunction with [overlayHeight] and [overlayWidth] to
+  /// define the desired size of the overlay.
+  final bool overlayWholeScreen;
+
+  /// The desired height of the overlay
+  final double? overlayHeight;
+
+  /// The desired width of the overlay
+  final double? overlayWidth;
+
+  /// The child that will have the overlay upon
   final Widget child;
 
   static const _prefix = '@loader-overlay';
@@ -110,10 +136,21 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
             opacity: isLoading
                 ? (widget.overlayOpacity ?? LoaderOverlay.defaultOpacityValue)
                 : 0,
-            child: Container(
-              key: LoaderOverlay.containerForOverlayColorKey,
-              color: widget.overlayColor ?? LoaderOverlay.defaultOverlayColor,
-            ),
+            child: widget.overlayWholeScreen
+                ? Container(
+                  key: LoaderOverlay.containerForOverlayColorKey,
+                  color: widget.overlayColor ??
+                      LoaderOverlay.defaultOverlayColor,
+                )
+                : Center(
+                    child: Container(
+                      height: widget.overlayHeight,
+                      width: widget.overlayWidth,
+                      key: LoaderOverlay.containerForOverlayColorKey,
+                      color: widget.overlayColor ??
+                          LoaderOverlay.defaultOverlayColor,
+                    ),
+                  ),
           ),
         ),
         if (widgetOverlay != null)

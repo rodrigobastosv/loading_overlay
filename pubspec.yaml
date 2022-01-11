@@ -1,6 +1,6 @@
 name: loader_overlay
 description: A simple package to simplify screen management. When loading any async task, this package prevent the user from interacting with the screen until the async task finishes.
-version: 2.0.4+3
+version: 2.0.5
 
 homepage: https://github.com/rodrigobastosv/loading_overlay
 
