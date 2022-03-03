@@ -138,10 +138,10 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
                 : 0,
             child: widget.overlayWholeScreen
                 ? Container(
-                  key: LoaderOverlay.containerForOverlayColorKey,
-                  color: widget.overlayColor ??
-                      LoaderOverlay.defaultOverlayColor,
-                )
+                    key: LoaderOverlay.containerForOverlayColorKey,
+                    color: widget.overlayColor ??
+                        LoaderOverlay.defaultOverlayColor,
+                  )
                 : Center(
                     child: Container(
                       height: widget.overlayHeight,
