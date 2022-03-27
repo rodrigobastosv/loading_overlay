@@ -171,7 +171,7 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
       );
 
   Widget _getDefaultLoadingWidget() => const Center(
-        child: CircularProgressIndicator(
+        child: CircularProgressIndicator.adaptive(
           key: LoaderOverlay.defaultOverlayWidgetKey,
         ),
       );

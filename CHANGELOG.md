@@ -1,3 +1,7 @@
+# 2.0.6
+
+- Making default overlay platform adaptative
+
 # 2.0.5+1
 
 - Formatting files
