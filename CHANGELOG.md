@@ -1,3 +1,7 @@
+# 2.0.7
+
+- Updating dependencies
+
 # 2.0.6
 
 - Making default overlay platform adaptative
