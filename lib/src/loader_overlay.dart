@@ -18,6 +18,7 @@ class LoaderOverlay extends StatefulWidget {
     this.overlayWholeScreen = true,
     this.overlayHeight,
     this.overlayWidth,
+    this.closeOnBackButton = false,
     required this.child,
   }) : super(key: key);
 
@@ -36,6 +37,9 @@ class LoaderOverlay extends StatefulWidget {
 
   /// Whether or not to disable the back button while loading.
   final bool disableBackButton;
+  
+  //Hide the loader when back button pressed
+  final bool closeOnBackButton;
 
   /// This should be false if you want to have full control of the size of the overlay.
   /// This is generaly used in conjunction with [overlayHeight] and [overlayWidth] to
@@ -90,6 +94,9 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
   }
 
   bool myInterceptor(bool stopDefaultButtonEvent, RouteInfo info) {
+    if (context.loaderOverlay.visible && widget.closeOnBackButton) {
+      context.loaderOverlay.hide();
+    }
     return widget.disableBackButton;
   }
 
