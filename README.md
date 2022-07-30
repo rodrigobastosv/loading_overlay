@@ -179,6 +179,33 @@ if (context.loaderOverlay.visible && context.loaderOverlay.overlayWidgetType == 
 
 If you pass widget to `context.loaderOverlay.show`, then `defaultLoader` and `widgetOverlay` will be ignored;
 
+# Animation
+
+By default, the overlay does not animate in or out. You can enable animations by passing the appropriate parameters to `LoaderOverlay`. Internally, an `AnimatedSwitcher` is used to manage animations, so the parameters are passed directly to the `AnimatedSwitcher`. By specifying a `duration` and `reverseDuration`, the overlay will animate in and out using a fade (the default transition used by `AnimatedSwitcher`). You can also pass curves, a transition builder and a layout builder for further customisation.
+
+```dart
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: LoaderOverlay(
+        duration: const Duration(milliseconds: 250),
+        reverseDuration: const Duration(milliseconds: 250),
+        // switchInCurve,
+        // switchOutCurve,
+        // transitionBuilder,
+        // layoutBuilder,
+        child: MyHomePage(title: 'Flutter Demo Home Page'),
+      ),
+    );
+  }
+}
+```
+
 ## Todo
 
 - [ ] Tests
