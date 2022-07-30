@@ -19,6 +19,12 @@ class LoaderOverlay extends StatefulWidget {
     this.overlayHeight,
     this.overlayWidth,
     this.closeOnBackButton = false,
+    this.duration = Duration.zero,
+    this.reverseDuration = Duration.zero,
+    this.switchInCurve = Curves.linear,
+    this.switchOutCurve = Curves.linear,
+    this.transitionBuilder = AnimatedSwitcher.defaultTransitionBuilder,
+    this.layoutBuilder = AnimatedSwitcher.defaultLayoutBuilder,
     required this.child,
   }) : super(key: key);
 
@@ -37,7 +43,7 @@ class LoaderOverlay extends StatefulWidget {
 
   /// Whether or not to disable the back button while loading.
   final bool disableBackButton;
-  
+
   //Hide the loader when back button pressed
   final bool closeOnBackButton;
 
@@ -54,6 +60,24 @@ class LoaderOverlay extends StatefulWidget {
 
   /// The child that will have the overlay upon
   final Widget child;
+
+  /// The duration when the overlay enters
+  final Duration duration;
+
+  /// The duration when the overlay exits
+  final Duration? reverseDuration;
+
+  /// The curve for the overlay to transition in
+  final Curve switchInCurve;
+
+  /// The curve for the overlay to transition out
+  final Curve switchOutCurve;
+
+  /// The transition builder for the overlay
+  final Widget Function(Widget, Animation<double>) transitionBuilder;
+
+  /// The layout builder for the overlay
+  final Widget Function(Widget?, List<Widget>) layoutBuilder;
 
   static const _prefix = '@loader-overlay';
 
@@ -123,10 +147,21 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
             return Stack(
               children: <Widget>[
                 widget.child,
-                if (isLoading)
-                  ..._getLoadingWidget(isLoading, widgetOverlay)
-                else
-                  const SizedBox.shrink(),
+                AnimatedSwitcher(
+                  duration: widget.duration,
+                  reverseDuration: widget.reverseDuration,
+                  switchInCurve: widget.switchInCurve,
+                  switchOutCurve: widget.switchOutCurve,
+                  transitionBuilder: widget.transitionBuilder,
+                  layoutBuilder: widget.layoutBuilder,
+                  child: isLoading
+                      ? Stack(
+                          children: _getLoadingWidget(
+                          isLoading,
+                          widgetOverlay,
+                        ))
+                      : const SizedBox.shrink(),
+                ),
               ],
             );
           },
