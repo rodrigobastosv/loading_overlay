@@ -135,6 +135,9 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
             'widget': null,
           },
           builder: (_, snapshot) {
+            // ignore: unused_local_variable
+            final visibilityStream =
+                innerContext.loaderOverlay.overlayController.visibilityStream;
             final isLoading = snapshot.data!['loading'] as bool;
             final widgetOverlay = snapshot.data!['widget'] as Widget?;
 

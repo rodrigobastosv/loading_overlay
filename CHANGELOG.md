@@ -1,3 +1,11 @@
+# 2.0.10
+
+- Fixing overlay not showing when back on the page
+
+# 2.0.9
+
+- Adding animation when the overlay is shown and hide
+
 # 2.0.7
 
 - Updating dependencies
