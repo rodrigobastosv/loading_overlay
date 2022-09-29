@@ -1,3 +1,7 @@
+# 2.1.0
+
+- Making Global Loader Overlay as powerful as Normal Overlay
+
 # 2.0.10
 
 - Fixing overlay not showing when back on the page
