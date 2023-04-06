@@ -1,3 +1,7 @@
+# 2.2.0
+
+- Adding GlobalLoaderContext to be used on the MaterialApp builder
+
 # 2.1.0
 
 - Making Global Loader Overlay as powerful as Normal Overlay

@@ -1,20 +1,12 @@
 import 'package:flutter/material.dart';
-import 'overlay_controller_widget.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 final _keyScaff = GlobalKey<ScaffoldState>();
-const GlobalLoaderContext = _GlobalLoaderContext._();
+
+const globalLoaderContext = _GlobalLoaderContext._();
 
 class _GlobalLoaderContext {
   const _GlobalLoaderContext._();
-  static void _checkBuilderIsInMaterialApp() {
-    assert(_keyScaff.currentState != null,
-        """Add GlobalLoaderContext.builder in your MaterialApp;
-       return MaterialApp(
-         builder: GlobalLoaderContext.builder,
-         ...
-  """);
-  }
 
   _OverlayExtensionHelper get loaderOverlay => _OverlayExtensionHelper(
       OverlayControllerWidget.of(_keyScaff.currentState!.context));
