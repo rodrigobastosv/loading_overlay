@@ -31,7 +31,7 @@ class _GlobalLoaderContext {
   ///  MaterialApp(
   ///      builder: GlobalLoaderContext.builder,
   ///      navigatorObservers: [
-  ///         globalLoaderContext.globalLoaderContextHeroController //if u don`t add this Hero will not work
+  ///         GlobalLoaderContext.globalLoaderContextHeroController //if u don`t add this Hero will not work
   ///      ],
   ///  );
   /// ```
