@@ -1,6 +1,79 @@
 import 'package:flutter/material.dart';
-
 import 'overlay_controller_widget.dart';
+import 'package:loader_overlay/loader_overlay.dart';
+
+final _keyScaff = GlobalKey<ScaffoldState>();
+const GlobalLoaderContext = _GlobalLoaderContext._();
+
+class _GlobalLoaderContext {
+  const _GlobalLoaderContext._();
+  static void _checkBuilderIsInMaterialApp() {
+    assert(_keyScaff.currentState != null,
+        """Add GlobalLoaderContext.builder in your MaterialApp;
+       return MaterialApp(
+         builder: GlobalLoaderContext.builder,
+         ...
+  """);
+  }
+
+  _OverlayExtensionHelper get loaderOverlay => _OverlayExtensionHelper(
+      OverlayControllerWidget.of(_keyScaff.currentState!.context));
+
+  /// init GlobalLoaderContext: Add in your MaterialApp
+  /// return MaterialApp(
+  ///         builder: GlobalLoaderContext.builder,
+  ///         ...
+  ///
+  /// Example:
+  /// ```
+  /// import 'package:loader_overlay/loader_overlay.dart';
+  ///
+  ///  MaterialApp(
+  ///      builder: GlobalLoaderContext.builder,
+  ///      navigatorObservers: [
+  ///         GlobalLoaderContext.globalLoaderContextHeroController //if u don`t add this Hero will not work
+  ///      ],
+  ///  );
+  /// ```
+  Widget builder(BuildContext context, Widget? child) {
+    return GlobalLoaderOverlay(
+      child: Navigator(
+        initialRoute: '/',
+        observers: [globalLoaderContextHeroController],
+        onGenerateRoute: (_) => MaterialPageRoute(
+          builder: (context) => _BuildPage(child: child),
+        ),
+      ),
+    );
+  }
+
+  HeroController get globalLoaderContextHeroController => HeroController(
+      createRectTween: (begin, end) =>
+          MaterialRectCenterArcTween(begin: begin, end: end));
+}
+
+class _BuildPage extends StatefulWidget {
+  final Widget? child;
+  const _BuildPage({Key? key, this.child}) : super(key: key);
+  @override
+  __BuildPageState createState() => __BuildPageState();
+}
+
+class __BuildPageState extends State<_BuildPage> {
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      key: _keyScaff,
+      body: widget.child,
+    );
+  }
+}
 
 ///Just a extension to make it cleaner to show or hide the overlay
 extension OverlayControllerWidgetExtension on BuildContext {
