@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../loader_overlay.dart';
@@ -22,9 +23,11 @@ class GlobalLoaderOverlay extends StatefulWidget {
     this.switchOutCurve = Curves.linear,
     this.transitionBuilder = AnimatedSwitcher.defaultTransitionBuilder,
     this.layoutBuilder = AnimatedSwitcher.defaultLayoutBuilder,
+    this.useBackButtonInterceptor = !kIsWeb,
     required this.child,
   }) : super(key: key);
 
+  final bool useBackButtonInterceptor;
   /// The widget of the overlay. This is great if you want to insert your own widget to serve as
   /// an overlay.
   final Widget? overlayWidget;
