@@ -1,6 +1,7 @@
 library loader_overlay;
 
 import 'package:back_button_interceptor/back_button_interceptor.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../loader_overlay.dart';
@@ -25,8 +26,11 @@ class LoaderOverlay extends StatefulWidget {
     this.switchOutCurve = Curves.linear,
     this.transitionBuilder = AnimatedSwitcher.defaultTransitionBuilder,
     this.layoutBuilder = AnimatedSwitcher.defaultLayoutBuilder,
+    this.useBackButtonInterceptor = !kIsWeb,
     required this.child,
   }) : super(key: key);
+
+  final bool useBackButtonInterceptor;
 
   /// The widget of the overlay. This is great if you want to insert your own widget to serve as
   /// an overlay.
@@ -113,7 +117,9 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
   @override
   void dispose() {
     _overlayControllerWidget?.dispose();
-    BackButtonInterceptor.remove(myInterceptor);
+    if (widget.useBackButtonInterceptor) {
+      BackButtonInterceptor.remove(myInterceptor);
+    }
     super.dispose();
   }
 
@@ -141,10 +147,12 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
             final isLoading = snapshot.data!['loading'] as bool;
             final widgetOverlay = snapshot.data!['widget'] as Widget?;
 
-            if (isLoading) {
-              BackButtonInterceptor.add(myInterceptor);
-            } else {
-              BackButtonInterceptor.remove(myInterceptor);
+            if (widget.useBackButtonInterceptor) {
+              if (isLoading) {
+                BackButtonInterceptor.add(myInterceptor);
+              } else {
+                BackButtonInterceptor.remove(myInterceptor);
+              }
             }
 
             return Stack(
