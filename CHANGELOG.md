@@ -1,3 +1,7 @@
+# 2.3.0
+
+- Fixing back button interceptor for Web
+
 # 2.2.0
 
 - Adding GlobalLoaderContext to be used on the MaterialApp builder
