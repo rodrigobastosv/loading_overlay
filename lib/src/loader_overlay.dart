@@ -184,27 +184,21 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
   List<Widget> _getLoadingWidget(bool isLoading, Widget? widgetOverlay) => [
         WillPopScope(
           onWillPop: () async => !widget.disableBackButton,
-          child: Opacity(
-            key: LoaderOverlay.opacityWidgetKey,
-            opacity: isLoading
-                ? (widget.overlayOpacity ?? LoaderOverlay.defaultOpacityValue)
-                : 0,
-            child: widget.overlayWholeScreen
-                ? Container(
+          child: widget.overlayWholeScreen
+              ? Container(
+                  key: LoaderOverlay.containerForOverlayColorKey,
+                  color:
+                      widget.overlayColor ?? LoaderOverlay.defaultOverlayColor,
+                )
+              : Center(
+                  child: Container(
+                    height: widget.overlayHeight,
+                    width: widget.overlayWidth,
                     key: LoaderOverlay.containerForOverlayColorKey,
                     color: widget.overlayColor ??
                         LoaderOverlay.defaultOverlayColor,
-                  )
-                : Center(
-                    child: Container(
-                      height: widget.overlayHeight,
-                      width: widget.overlayWidth,
-                      key: LoaderOverlay.containerForOverlayColorKey,
-                      color: widget.overlayColor ??
-                          LoaderOverlay.defaultOverlayColor,
-                    ),
                   ),
-          ),
+                ),
         ),
         if (widgetOverlay != null)
           _widgetOverlay(widgetOverlay)
