@@ -1,3 +1,7 @@
+# 2.3.1
+
+- Fixing Opacity bug for iOS
+ 
 # 2.3.0
 
 - Fixing back button interceptor for Web
