@@ -1,3 +1,7 @@
+# 2.3.2
+
+- Replaced Container Widget for SizedBox
+ 
 # 2.3.1
 
 - Fixing Opacity bug for iOS
