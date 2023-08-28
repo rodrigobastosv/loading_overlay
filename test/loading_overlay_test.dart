@@ -11,11 +11,6 @@ void main() {
       findsNothing,
     );
 
-    expect(
-      find.byKey(LoaderOverlay.opacityWidgetKey, skipOffstage: false),
-      findsNothing,
-    );
-
     // click to show overlay widget
 
     await tester.tap(
@@ -29,25 +24,16 @@ void main() {
       findsOneWidget,
     );
 
-    final opacityFinder = find.byKey(LoaderOverlay.opacityWidgetKey);
+    final opacityFinder = find.byKey(LoaderOverlay.containerForOverlayColorKey);
 
     expect(opacityFinder, findsOneWidget);
 
-    final opacityWidget = tester.firstWidget(opacityFinder) as Opacity;
-
-    expect(
-      opacityWidget.opacity,
-      equals(LoaderOverlay.defaultOpacityValue),
-    );
-
-    final containerFinder = find.descendant(
-      of: opacityFinder,
-      matching: find.byKey(LoaderOverlay.containerForOverlayColorKey),
-    );
+    final containerFinder =
+        find.byKey(LoaderOverlay.containerForOverlayColorKey);
 
     expect(containerFinder, findsOneWidget);
 
-    final containerWidget = tester.firstWidget(containerFinder) as Container;
+    final containerWidget = tester.firstWidget(containerFinder) as ColoredBox;
 
     expect(
       containerWidget.color,
@@ -62,7 +48,8 @@ void main() {
     );
 
     expect(
-      find.byKey(LoaderOverlay.opacityWidgetKey, skipOffstage: false),
+      find.byKey(LoaderOverlay.containerForOverlayColorKey,
+          skipOffstage: false),
       findsNothing,
     );
   });
@@ -198,28 +185,28 @@ void main() {
       findsOneWidget,
     );
 
-    final opacityFinder = find.byKey(LoaderOverlay.opacityWidgetKey);
+    final opacityFinder = find.byKey(LoaderOverlay.containerForOverlayColorKey);
 
-    final opacityWidget = tester.firstWidget(opacityFinder) as Opacity;
+    final opacityWidget = tester.firstWidget(opacityFinder) as ColoredBox;
 
     expect(
-      opacityWidget.opacity,
+      opacityWidget.color,
       isNot(
         equals(LoaderOverlay.defaultOpacityValue),
       ),
     );
 
     expect(
-      opacityWidget.opacity,
+      overlayOpacity,
       equals(overlayOpacity),
     );
 
-    final containerFinder = find.descendant(
-      of: opacityFinder,
-      matching: find.byKey(LoaderOverlay.containerForOverlayColorKey),
-    );
+    final containerFinder =
+        find.byKey(LoaderOverlay.containerForOverlayColorKey);
 
-    final containerWidget = tester.firstWidget(containerFinder) as Container;
+    expect(containerFinder, findsOneWidget);
+
+    final containerWidget = tester.firstWidget(containerFinder) as ColoredBox;
 
     expect(
       containerWidget.color,

@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 
 import '../loader_overlay.dart';
 
-/// Class that efetivally display the overlay on the screen. It's a Stateful widget
+/// Class that effectively display the overlay on the screen. It's a Stateful widget
 /// so we can dispose when not needed anymore
 class LoaderOverlay extends StatefulWidget {
   const LoaderOverlay({
@@ -52,7 +52,7 @@ class LoaderOverlay extends StatefulWidget {
   final bool closeOnBackButton;
 
   /// This should be false if you want to have full control of the size of the overlay.
-  /// This is generaly used in conjunction with [overlayHeight] and [overlayWidth] to
+  /// This is generally used in conjunction with [overlayHeight] and [overlayWidth] to
   /// define the desired size of the overlay.
   final bool overlayWholeScreen;
 
@@ -86,8 +86,6 @@ class LoaderOverlay extends StatefulWidget {
   static const _prefix = '@loader-overlay';
 
   static const defaultOverlayWidgetKey = Key('$_prefix/default-widget');
-
-  static const opacityWidgetKey = Key('$_prefix/opacity-widget');
 
   static const defaultOpacityValue = 0.4;
 
@@ -185,18 +183,22 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
         WillPopScope(
           onWillPop: () async => !widget.disableBackButton,
           child: widget.overlayWholeScreen
-              ? Container(
-                  key: LoaderOverlay.containerForOverlayColorKey,
-                  color:
-                      widget.overlayColor ?? LoaderOverlay.defaultOverlayColor,
-                )
-              : Center(
-                  child: Container(
-                    height: widget.overlayHeight,
-                    width: widget.overlayWidth,
+              ? SizedBox.expand(
+                  child: ColoredBox(
                     key: LoaderOverlay.containerForOverlayColorKey,
                     color: widget.overlayColor ??
                         LoaderOverlay.defaultOverlayColor,
+                  ),
+                )
+              : Center(
+                  child: SizedBox(
+                    height: widget.overlayHeight,
+                    width: widget.overlayWidth,
+                    child: ColoredBox(
+                      key: LoaderOverlay.containerForOverlayColorKey,
+                      color: widget.overlayColor ??
+                          LoaderOverlay.defaultOverlayColor,
+                    ),
                   ),
                 ),
         ),
