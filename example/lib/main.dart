@@ -1,6 +1,5 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 void main() => runApp(MyAppGlobalLoaderOverlay());
@@ -23,28 +22,11 @@ class MyAppGlobalLoaderOverlay extends StatelessWidget {
       ),
       overlayColor: Colors.transparent,
       useDefaultLoading: false,
-      overlayWidgetBuilder: (progress) {
-        return BackdropFilter(
-          filter: ImageFilter.blur(
-            sigmaX: 4.5,
-            sigmaY: 4.5,
-          ),
-          child: Center(
-            child: Container(
-              width: 100,
-              height: 100,
-              color: Colors.purple,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircularProgressIndicator(),
-                  Text(
-                    'Doing stuff... bip...bup',
-                    textAlign: TextAlign.center,
-                  )
-                ],
-              ),
-            ),
+      overlayWidgetBuilder: (_) { //ignored progress for the moment
+        return Center(
+          child: SpinKitCubeGrid(
+            color: Colors.red,
+            size: 50.0,
           ),
         );
       },
