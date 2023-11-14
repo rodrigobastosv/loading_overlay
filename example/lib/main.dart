@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 void main() => runApp(MyAppGlobalLoaderOverlay());
@@ -20,8 +19,7 @@ class MyAppGlobalLoaderOverlay extends StatelessWidget {
           '/': (context) => MyHomePage(),
         },
       ),
-      overlayColor: Colors.transparent,
-      useDefaultLoading: false,
+      /*useDefaultLoading: false,
       overlayWidgetBuilder: (_) { //ignored progress for the moment
         return Center(
           child: SpinKitCubeGrid(
@@ -29,7 +27,7 @@ class MyAppGlobalLoaderOverlay extends StatelessWidget {
             size: 50.0,
           ),
         );
-      },
+      },*/
     );
   }
 }
@@ -65,10 +63,10 @@ class _MyHomePageState extends State<MyHomePage> {
                   _isLoaderVisible = context.loaderOverlay.visible;
                 });
               },
-              child: Text('Super custom overlay'),
+              child: Text('Show overlay for 2 seconds'),
             ),
             SizedBox(height: 24),
-            /*ElevatedButton(
+            ElevatedButton(
               onPressed: () async {
                 context.loaderOverlay.show(
                     widgetBuilder: (progress) {
@@ -117,7 +115,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: Text('Show loader overlay for 5 seconds with progress'),
             ),
-            SizedBox(height: 34),*/
+            SizedBox(height: 34),
             Text('Is loader visible: $_isLoaderVisible'),
           ],
         ),

@@ -54,7 +54,7 @@ final isVisible = context.loaderOverlay.visible;
 
 *Note: You will always need the context to show or hide the loader overlay
 
-![Simple Overlay](readme_assets/simple_custom_overlay.gif)
+![Simple Overlay](readme_assets/basic_overlay.gif)
 
 # Basic Usage on Named Routes
 
