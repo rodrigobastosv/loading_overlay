@@ -298,6 +298,67 @@ and use a fully personalized `overlayWidgetBuilder` to make your own 100% custom
 
 ![Complete Custom Overlay](readme_assets/complete_custom_overlay.gif)
 
+# Breaking changes
+
+1 - Since version **`2.4.0`** the overlay widget's got changed by a builder to manage the progress.
+
+Before:
+
+```dart
+      LoaderOverlay(
+        //...
+        useDefaultLoading: false,
+        overlayWidget: Center(
+          child: SpinKitCubeGrid(
+            color: Colors.red,
+            size: 50.0,
+          ),
+        ),
+        //...      
+      )
+```
+
+After:
+
+```dart
+      LoaderOverlay(
+        //...
+        useDefaultLoading: false,
+        overlayWidgetBuilder: (_) {
+          return Center(
+            child: SpinKitCubeGrid(
+              color: Colors.red,
+              size: 50.0,
+            ),
+          );
+        },
+        //...
+      )
+```
+
+2 - `overlayOpacity` was removed. Now use the opacity direct in the `overlayColor`
+
+Before:
+
+```dart
+      LoaderOverlay(
+        //...
+        overlayColor: Colors.black,
+        overlayOpacity: 0.8,
+        //...
+      )
+```
+
+After:
+
+```dart
+      LoaderOverlay(
+        //...
+        overlayColor: Colors.black.withOpacity(0.8),
+        //...
+      )
+```
+
 # Animation
 
 By default, the overlay does not animate in or out. You can enable animations by passing the

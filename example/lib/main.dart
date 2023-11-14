@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 void main() => runApp(MyAppGlobalLoaderOverlay());
@@ -19,7 +20,8 @@ class MyAppGlobalLoaderOverlay extends StatelessWidget {
           '/': (context) => MyHomePage(),
         },
       ),
-      /*useDefaultLoading: false,
+      overlayColor: Colors.grey.withOpacity(0.8),
+      useDefaultLoading: false,
       overlayWidgetBuilder: (_) { //ignored progress for the moment
         return Center(
           child: SpinKitCubeGrid(
@@ -27,7 +29,7 @@ class MyAppGlobalLoaderOverlay extends StatelessWidget {
             size: 50.0,
           ),
         );
-      },*/
+      },
     );
   }
 }
