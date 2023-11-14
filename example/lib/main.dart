@@ -1,32 +1,9 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
 void main() => runApp(MyAppGlobalLoaderOverlay());
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: LoaderOverlay(
-        useDefaultLoading: false,
-        overlayWidget: Center(
-          child: SpinKitCubeGrid(
-            color: Colors.red,
-            size: 50.0,
-          ),
-        ),
-        overlayColor: Colors.black,
-        overlayOpacity: 0.8,
-        child: MyHomePage(),
-      ),
-    );
-  }
-}
 
 class MyAppGlobalLoaderOverlay extends StatelessWidget {
   @override
@@ -44,16 +21,33 @@ class MyAppGlobalLoaderOverlay extends StatelessWidget {
           '/': (context) => MyHomePage(),
         },
       ),
+      overlayColor: Colors.transparent,
       useDefaultLoading: false,
-      overlayWidget: Center(
-        child: SpinKitCubeGrid(
-          color: Colors.red,
-          size: 50.0,
-        ),
-      ),
-      overlayColor: Colors.black,
-      overlayOpacity: 0.8,
-      duration: Duration(seconds: 2),
+      overlayWidgetBuilder: (progress) {
+        return BackdropFilter(
+          filter: ImageFilter.blur(
+            sigmaX: 4.5,
+            sigmaY: 4.5,
+          ),
+          child: Center(
+            child: Container(
+              width: 100,
+              height: 100,
+              color: Colors.purple,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CircularProgressIndicator(),
+                  Text(
+                    'Doing stuff... bip...bup',
+                    textAlign: TextAlign.center,
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -89,18 +83,23 @@ class _MyHomePageState extends State<MyHomePage> {
                   _isLoaderVisible = context.loaderOverlay.visible;
                 });
               },
-              child: Text('Show loader overlay for 2 seconds'),
+              child: Text('Super custom overlay'),
             ),
-            ElevatedButton(
+            SizedBox(height: 24),
+            /*ElevatedButton(
               onPressed: () async {
-                context.loaderOverlay.show(widget: ReconnectingOverlay());
+                context.loaderOverlay.show(
+                    widgetBuilder: (progress) {
+                      return ReconnectingOverlay(
+                        progress != null ? progress as String : null,
+                      );
+                    },
+                    progress: 'Trying to reconnect');
                 setState(() {
                   _isLoaderVisible = context.loaderOverlay.visible;
                 });
                 await Future.delayed(Duration(seconds: 3));
-                if (_isLoaderVisible &&
-                    context.loaderOverlay.overlayWidgetType ==
-                        ReconnectingOverlay) {
+                if (_isLoaderVisible) {
                   context.loaderOverlay.hide();
                 }
                 setState(() {
@@ -109,6 +108,34 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               child: Text('Show custom loader overlay for 2 seconds'),
             ),
+            SizedBox(height: 24),
+            ElevatedButton(
+              onPressed: () async {
+                context.loaderOverlay.show(
+                  progress: 'Doing progress #0',
+                );
+                setState(() {
+                  _isLoaderVisible = context.loaderOverlay.visible;
+                });
+
+                await Future.delayed(Duration(seconds: 1));
+                context.loaderOverlay.progress('Doing progress #1');
+                await Future.delayed(Duration(seconds: 1));
+                context.loaderOverlay.progress('Doing progress #2');
+                await Future.delayed(Duration(seconds: 1));
+                context.loaderOverlay.progress('Doing progress #3');
+                await Future.delayed(Duration(seconds: 1));
+
+                if (_isLoaderVisible) {
+                  context.loaderOverlay.hide();
+                }
+                setState(() {
+                  _isLoaderVisible = context.loaderOverlay.visible;
+                });
+              },
+              child: Text('Show loader overlay for 5 seconds with progress'),
+            ),
+            SizedBox(height: 34),*/
             Text('Is loader visible: $_isLoaderVisible'),
           ],
         ),
@@ -118,52 +145,26 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class ReconnectingOverlay extends StatelessWidget {
+  String? progress;
+
+  ReconnectingOverlay(this.progress);
+
   @override
   Widget build(BuildContext context) => Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircularProgressIndicator(),
             SizedBox(height: 12),
             Text(
               'Reconnecting...',
             ),
+            SizedBox(height: 12),
+            Text(
+              progress ?? '',
+            ),
           ],
         ),
       );
-}
-
-class PartScreenOverlay extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: LoaderOverlay(
-        useDefaultLoading: false,
-        overlayWidget: Center(
-          child: SpinKitCubeGrid(
-            color: Colors.red,
-            size: 50.0,
-          ),
-        ),
-        overlayOpacity: 0.8,
-        overlayWholeScreen: false,
-        overlayHeight: 100,
-        overlayWidth: 100,
-        child: Scaffold(
-          body: Center(
-            child: ElevatedButton(
-              child: Text('aaaaa'),
-              onPressed: () {
-                context.loaderOverlay.show();
-              },
-            ),
-          ),
-        ),
-      ),
-    );
-  }
 }
