@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:loader_overlay/loader_overlay.dart';
 
 ///The inherited widget that guarantees the behavior of the overlay
 class OverlayControllerWidget extends InheritedWidget {
@@ -21,11 +22,13 @@ class OverlayControllerWidget extends InheritedWidget {
   ///Set the visibility of the overlay
   void setOverlayVisible(
     bool loading, {
-    Widget? widget,
+    Widget Function(dynamic? progress)? widgetBuilder,
+    dynamic progress,
   }) =>
       visibilityController.add(<String, dynamic>{
-        'loading': loading,
-        'widget': widget,
+        cLoading: loading,
+        cWidgetBuilder: widgetBuilder,
+        cProgress: progress,
       });
 
   ///Dispose the controller

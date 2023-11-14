@@ -46,7 +46,9 @@ class _GlobalLoaderContext {
 
 class _BuildPage extends StatefulWidget {
   final Widget? child;
+
   const _BuildPage({Key? key, this.child}) : super(key: key);
+
   @override
   __BuildPageState createState() => __BuildPageState();
 }
@@ -73,17 +75,6 @@ extension OverlayControllerWidgetExtension on BuildContext {
   OverlayControllerWidget? getOverlayController() =>
       OverlayControllerWidget.of(this);
 
-  ///Extension created to show the overlay
-  @Deprecated('Use context.loaderOverlay.show() instead')
-  void showLoaderOverlay({
-    Widget? widget,
-  }) =>
-      getOverlayController()!.setOverlayVisible(true, widget: widget);
-
-  ///Extension created to hide the overlay
-  @Deprecated('Use context.loaderOverlay.hide() instead')
-  void hideLoaderOverlay() => getOverlayController()?.setOverlayVisible(false);
-
   _OverlayExtensionHelper get loaderOverlay =>
       _OverlayExtensionHelper(OverlayControllerWidget.of(this));
 }
@@ -93,10 +84,11 @@ class _OverlayExtensionHelper {
       _OverlayExtensionHelper._internal();
   late OverlayControllerWidget _overlayController;
 
-  Widget? _widget;
+  Widget Function(dynamic? progress)? _widgetBuilder;
   bool? _visible;
 
   OverlayControllerWidget get overlayController => _overlayController;
+
   bool get visible => _visible ?? false;
 
   factory _OverlayExtensionHelper(OverlayControllerWidget? overlayController) {
@@ -106,14 +98,30 @@ class _OverlayExtensionHelper {
 
     return _singleton;
   }
+
   _OverlayExtensionHelper._internal();
 
-  Type? get overlayWidgetType => _widget?.runtimeType;
-
-  void show({Widget? widget}) {
-    _widget = widget;
+  void show({
+    Widget Function(dynamic? progress)? widgetBuilder,
+    dynamic? progress,
+  }) {
+    _widgetBuilder = widgetBuilder;
     _visible = true;
-    _overlayController.setOverlayVisible(_visible!, widget: _widget);
+    _overlayController.setOverlayVisible(
+      _visible!,
+      widgetBuilder: _widgetBuilder,
+      progress: progress,
+    );
+  }
+
+  void progress(dynamic? progress, {bool onlyOnVisible = true}) {
+    if (onlyOnVisible && visible) {
+      _overlayController.setOverlayVisible(
+        visible,
+        widgetBuilder: _widgetBuilder,
+        progress: progress,
+      );
+    }
   }
 
   void hide() {
