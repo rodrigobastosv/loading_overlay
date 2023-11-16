@@ -62,7 +62,7 @@ void main() {
     await tester.pumpWidget(
       TestApp(
         // useDefaultLoading is true by default
-        overlayWidget: Container(key: containerKey),
+        overlayWidgetBuilder: (progress) => Container(key: containerKey),
       ),
     );
 
@@ -118,7 +118,7 @@ void main() {
 
     await tester.pumpWidget(
       TestApp(
-        overlayWidget: Container(key: containerKey),
+        overlayWidgetBuilder: (progress) => Container(key: containerKey),
         useDefaultLoading: false,
       ),
     );
@@ -163,10 +163,7 @@ void main() {
     const overlayOpacity = 0.8;
 
     await tester.pumpWidget(
-      const TestApp(
-        overlayOpacity: overlayOpacity,
-        overlayColor: overlayColor,
-      ),
+      const TestApp(),
     );
 
     expect(
@@ -183,17 +180,6 @@ void main() {
     expect(
       find.byKey(LoaderOverlay.defaultOverlayWidgetKey),
       findsOneWidget,
-    );
-
-    final opacityFinder = find.byKey(LoaderOverlay.containerForOverlayColorKey);
-
-    final opacityWidget = tester.firstWidget(opacityFinder) as ColoredBox;
-
-    expect(
-      opacityWidget.color,
-      isNot(
-        equals(LoaderOverlay.defaultOpacityValue),
-      ),
     );
 
     expect(
@@ -232,16 +218,12 @@ void main() {
 class TestApp extends StatelessWidget {
   const TestApp({
     Key? key,
-    this.overlayWidget,
+    this.overlayWidgetBuilder,
     this.useDefaultLoading = LoaderOverlay.useDefaultLoadingValue,
-    this.overlayOpacity = LoaderOverlay.defaultOpacityValue,
-    this.overlayColor = LoaderOverlay.defaultOverlayColor,
   }) : super(key: key);
 
-  final Widget? overlayWidget;
+  final Widget Function(dynamic progress)? overlayWidgetBuilder;
   final bool useDefaultLoading;
-  final double overlayOpacity;
-  final Color overlayColor;
 
   static const showHideOverlayIconKey = Key('@test/show-hide-overlay');
 
@@ -249,10 +231,9 @@ class TestApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: LoaderOverlay(
-        overlayWidget: overlayWidget,
+        overlayWidgetBuilder: overlayWidgetBuilder,
         useDefaultLoading: useDefaultLoading,
-        overlayOpacity: overlayOpacity,
-        overlayColor: overlayColor,
+        overlayColor: LoaderOverlay.defaultOverlayColor,
         child: Scaffold(
           body: IconButton(
             key: TestApp.showHideOverlayIconKey,

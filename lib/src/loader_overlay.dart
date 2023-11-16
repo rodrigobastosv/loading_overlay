@@ -6,14 +6,17 @@ import 'package:flutter/material.dart';
 
 import '../loader_overlay.dart';
 
+const String cLoading = 'loading';
+const String cWidgetBuilder = 'widget_builder';
+const String cProgress = 'progress';
+
 /// Class that effectively display the overlay on the screen. It's a Stateful widget
 /// so we can dispose when not needed anymore
 class LoaderOverlay extends StatefulWidget {
   const LoaderOverlay({
     Key? key,
-    this.overlayWidget,
+    this.overlayWidgetBuilder,
     this.useDefaultLoading = useDefaultLoadingValue,
-    this.overlayOpacity,
     this.overlayColor,
     this.disableBackButton = true,
     this.overlayWholeScreen = true,
@@ -34,13 +37,10 @@ class LoaderOverlay extends StatefulWidget {
 
   /// The widget of the overlay. This is great if you want to insert your own widget to serve as
   /// an overlay.
-  final Widget? overlayWidget;
+  final Widget Function(dynamic progress)? overlayWidgetBuilder;
 
   /// Whether or not to use a default loading if none is provided.
   final bool useDefaultLoading;
-
-  /// The opacity of the overlay
-  final double? overlayOpacity;
 
   /// The color of the overlay
   final Color? overlayColor;
@@ -87,9 +87,7 @@ class LoaderOverlay extends StatefulWidget {
 
   static const defaultOverlayWidgetKey = Key('$_prefix/default-widget');
 
-  static const defaultOpacityValue = 0.4;
-
-  static const defaultOverlayColor = Colors.grey;
+  static Color defaultOverlayColor = Colors.grey.withOpacity(0.4);
 
   static const containerForOverlayColorKey =
       Key('$_prefix/container-for-overlay-color');
@@ -135,15 +133,18 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
         builder: (innerContext) => StreamBuilder<Map<String, dynamic>>(
           stream: innerContext.loaderOverlay.overlayController.visibilityStream,
           initialData: const <String, dynamic>{
-            'loading': false,
-            'widget': null,
+            cLoading: false,
+            cWidgetBuilder: null,
+            cProgress: null,
           },
           builder: (_, snapshot) {
             // ignore: unused_local_variable
             final visibilityStream =
                 innerContext.loaderOverlay.overlayController.visibilityStream;
-            final isLoading = snapshot.data!['loading'] as bool;
-            final widgetOverlay = snapshot.data!['widget'] as Widget?;
+            final isLoading = snapshot.data![cLoading] as bool;
+            final widgetOverlayBuilder = snapshot.data![cWidgetBuilder]
+                as Widget Function(dynamic? progress)?;
+            final progress = snapshot.data![cProgress] as dynamic?;
 
             if (widget.useBackButtonInterceptor) {
               if (isLoading) {
@@ -166,9 +167,11 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
                   child: isLoading
                       ? Stack(
                           children: _getLoadingWidget(
-                          isLoading,
-                          widgetOverlay,
-                        ))
+                            isLoading,
+                            widgetOverlayBuilder: widgetOverlayBuilder,
+                            progress: progress,
+                          ),
+                        )
                       : const SizedBox.shrink(),
                 ),
               ],
@@ -179,7 +182,12 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
     );
   }
 
-  List<Widget> _getLoadingWidget(bool isLoading, Widget? widgetOverlay) => [
+  List<Widget> _getLoadingWidget(
+    bool isLoading, {
+    Widget Function(dynamic? progress)? widgetOverlayBuilder,
+    dynamic? progress,
+  }) =>
+      [
         WillPopScope(
           onWillPop: () async => !widget.disableBackButton,
           child: widget.overlayWholeScreen
@@ -202,12 +210,14 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
                   ),
                 ),
         ),
-        if (widgetOverlay != null)
-          _widgetOverlay(widgetOverlay)
+        if (widgetOverlayBuilder != null)
+          _widgetOverlay(widgetOverlayBuilder(progress))
         else
           widget.useDefaultLoading
               ? _getDefaultLoadingWidget()
-              : widget.overlayWidget!,
+              : widget.overlayWidgetBuilder != null
+                  ? widget.overlayWidgetBuilder!(progress)
+                  : const SizedBox(),
       ];
 
   Widget _widgetOverlay(Widget widget) => SizedBox(

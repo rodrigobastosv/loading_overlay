@@ -1,11 +1,26 @@
+# 2.4.0 (maybe)
+
+- Added progress functionality
+- **BreakingChange**: Refactor `overlayWidget` to `overlayWidgetBuilder`. Now requires a function to
+  display current
+  progress
+- **BreakingChange**: Remove `overlayOpacity`. From now on use the `overlayColor` property with
+  the `.withOpacity`
+- Change `defaultOverlayColor` to `Colors.grey.withOpacity(0.4);` (Include opacity).
+- **BreakingChange**: Remove `@Deprecated`'s methods in `OverlayControllerWidgetExtension`
+- **BreakingChange**: Remove `overlayWidgetType`'s property in `OverlayControllerWidgetExtension`
+- Update example
+- Update README.md
+- Update CHANGELOG.md
+
 # 2.3.2
 
 - Replaced Container Widget for SizedBox
- 
+
 # 2.3.1
 
 - Fixing Opacity bug for iOS
- 
+
 # 2.3.0
 
 - Fixing back button interceptor for Web
@@ -40,7 +55,8 @@
 
 # 2.0.5
 
-- Adding possibility to overlay only one part of the screen (https://github.com/rodrigobastosv/loading_overlay/issues/27)
+- Adding possibility to overlay only one part of the
+  screen (https://github.com/rodrigobastosv/loading_overlay/issues/27)
 
 # 2.0.4+3
 
@@ -65,7 +81,7 @@
 # 2.0.2+1
 
 - Formatting file according to dartfmt
- 
+
 # 2.0.2
 
 - Fixing overlayWidget underneath the screen overlay
@@ -83,11 +99,13 @@
 - Migrating package to null safety
 
 # 1.2.1
- - `context.showLoaderOverlay` and `context.hideLoaderOverlay` marked as depricated. You should use `context.loaderOverlay.show` and `context.loaderOverlay.hide`
- - widget that you pass to `context.loaderOverlay.show` will be shown instead of `widgetOverlay`
- - Added `context.loaderOverlay.visible`
- - Added `context.loaderOverlay.overlayWidgetType`
- - `useDefaultLoading` set to `true` by default
+
+- `context.showLoaderOverlay` and `context.hideLoaderOverlay` marked as depricated. You should
+  use `context.loaderOverlay.show` and `context.loaderOverlay.hide`
+- widget that you pass to `context.loaderOverlay.show` will be shown instead of `widgetOverlay`
+- Added `context.loaderOverlay.visible`
+- Added `context.loaderOverlay.overlayWidgetType`
+- `useDefaultLoading` set to `true` by default
 
 # 1.2.0
 

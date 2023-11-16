@@ -8,9 +8,8 @@ class GlobalLoaderOverlay extends StatefulWidget {
   const GlobalLoaderOverlay({
     Key? key,
     this.textDirection = TextDirection.ltr,
-    this.overlayWidget,
+    this.overlayWidgetBuilder,
     this.useDefaultLoading = true,
-    this.overlayOpacity,
     this.overlayColor,
     this.disableBackButton = true,
     this.overlayWholeScreen = true,
@@ -28,15 +27,13 @@ class GlobalLoaderOverlay extends StatefulWidget {
   }) : super(key: key);
 
   final bool useBackButtonInterceptor;
+
   /// The widget of the overlay. This is great if you want to insert your own widget to serve as
   /// an overlay.
-  final Widget? overlayWidget;
+  final Widget Function(dynamic progress)? overlayWidgetBuilder;
 
   /// Whether or not to use a default loading if none is provided.
   final bool useDefaultLoading;
-
-  /// The opacity of the overlay
-  final double? overlayOpacity;
 
   /// The color of the overlay
   final Color? overlayColor;
@@ -92,9 +89,8 @@ class _GlobalLoaderOverlayState extends State<GlobalLoaderOverlay> {
     return Directionality(
       textDirection: widget.textDirection,
       child: LoaderOverlay(
-        overlayWidget: widget.overlayWidget,
+        overlayWidgetBuilder: widget.overlayWidgetBuilder,
         useDefaultLoading: widget.useDefaultLoading,
-        overlayOpacity: widget.overlayOpacity,
         overlayColor: widget.overlayColor,
         disableBackButton: widget.disableBackButton,
         overlayWholeScreen: widget.overlayWholeScreen,
