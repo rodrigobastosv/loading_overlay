@@ -22,7 +22,7 @@ class OverlayControllerWidget extends InheritedWidget {
   ///Set the visibility of the overlay
   void setOverlayVisible(
     bool loading, {
-    Widget Function(dynamic? progress)? widgetBuilder,
+    Widget Function(dynamic progress)? widgetBuilder,
     dynamic progress,
   }) =>
       visibilityController.add(<String, dynamic>{

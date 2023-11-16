@@ -127,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class ReconnectingOverlay extends StatelessWidget {
-  String? progress;
+  final String? progress;
 
   ReconnectingOverlay(this.progress);
 

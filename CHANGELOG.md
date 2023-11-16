@@ -1,4 +1,4 @@
-# 2.4.0 (maybe)
+# 3.0.0
 
 - Added progress functionality
 - **BreakingChange**: Refactor `overlayWidget` to `overlayWidgetBuilder`. Now requires a function to

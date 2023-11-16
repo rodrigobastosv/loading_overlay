@@ -84,7 +84,7 @@ class _OverlayExtensionHelper {
       _OverlayExtensionHelper._internal();
   late OverlayControllerWidget _overlayController;
 
-  Widget Function(dynamic? progress)? _widgetBuilder;
+  Widget Function(dynamic progress)? _widgetBuilder;
   bool? _visible;
 
   OverlayControllerWidget get overlayController => _overlayController;
@@ -102,8 +102,8 @@ class _OverlayExtensionHelper {
   _OverlayExtensionHelper._internal();
 
   void show({
-    Widget Function(dynamic? progress)? widgetBuilder,
-    dynamic? progress,
+    Widget Function(dynamic progress)? widgetBuilder,
+    dynamic progress,
   }) {
     _widgetBuilder = widgetBuilder;
     _visible = true;
@@ -114,7 +114,7 @@ class _OverlayExtensionHelper {
     );
   }
 
-  void progress(dynamic? progress, {bool onlyOnVisible = true}) {
+  void progress(dynamic progress, {bool onlyOnVisible = true}) {
     if (onlyOnVisible && visible) {
       _overlayController.setOverlayVisible(
         visible,

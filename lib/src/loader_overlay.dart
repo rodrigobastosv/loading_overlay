@@ -143,8 +143,8 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
                 innerContext.loaderOverlay.overlayController.visibilityStream;
             final isLoading = snapshot.data![cLoading] as bool;
             final widgetOverlayBuilder = snapshot.data![cWidgetBuilder]
-                as Widget Function(dynamic? progress)?;
-            final progress = snapshot.data![cProgress] as dynamic?;
+                as Widget Function(dynamic progress)?;
+            final progress = snapshot.data![cProgress] as dynamic;
 
             if (widget.useBackButtonInterceptor) {
               if (isLoading) {
@@ -184,8 +184,8 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
 
   List<Widget> _getLoadingWidget(
     bool isLoading, {
-    Widget Function(dynamic? progress)? widgetOverlayBuilder,
-    dynamic? progress,
+    Widget Function(dynamic progress)? widgetOverlayBuilder,
+    dynamic progress,
   }) =>
       [
         WillPopScope(
