@@ -56,7 +56,7 @@ final isVisible = context.loaderOverlay.visible;
 
 ![Simple Overlay](readme_assets/basic_overlay.gif)
 
-# Basic Usage on Named Routes
+# Basic Usage on Navigation
 
 To use this package with named routes you can just wrap your MaterialApp with GlobalLoaderOverlay.
 This widget has all the features of LoaderOverlay but it is provided for all the routes of the app.
@@ -300,7 +300,7 @@ and use a fully personalized `overlayWidgetBuilder` to make your own 100% custom
 
 # Breaking changes
 
-1 - Since version **`2.4.0`** the overlay widget's got changed by a builder to manage the progress.
+1 - Since version **`3.0.0`** the overlay widget's got changed by a builder to manage the progress.
 
 Before:
 

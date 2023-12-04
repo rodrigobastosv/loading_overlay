@@ -1,3 +1,7 @@
+# 3.0.2
+
+- Update docs
+
 # 3.0.1
 
 - Passing property useBackButtonInterceptor
