@@ -1,3 +1,7 @@
+# 3.0.1
+
+- Passing property useBackButtonInterceptor
+
 # 3.0.0
 
 - Added progress functionality
