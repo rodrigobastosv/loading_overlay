@@ -103,6 +103,7 @@ class _GlobalLoaderOverlayState extends State<GlobalLoaderOverlay> {
         switchOutCurve: widget.switchOutCurve,
         transitionBuilder: widget.transitionBuilder,
         layoutBuilder: widget.layoutBuilder,
+        useBackButtonInterceptor: widget.useBackButtonInterceptor,
         child: widget.child,
       ),
     );
