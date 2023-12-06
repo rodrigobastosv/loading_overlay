@@ -10,11 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  back_button_interceptor: ^6.0.0
+  back_button_interceptor: ^7.0.0
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.4
-
-flutter:
