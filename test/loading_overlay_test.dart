@@ -163,7 +163,7 @@ void main() {
     const overlayOpacity = 0.8;
 
     await tester.pumpWidget(
-      const TestApp(),
+      const TestApp(overlayColor: overlayColor),
     );
 
     expect(
@@ -213,6 +213,51 @@ void main() {
       findsNothing,
     );
   });
+
+  testWidgets('loading widget without no overlay layer',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(const TestApp());
+
+    expect(
+      find.byKey(LoaderOverlay.defaultOverlayWidgetKey, skipOffstage: false),
+      findsNothing,
+    );
+
+    // click to show overlay widget
+
+    await tester.tap(
+      find.byKey(TestApp.showHideOverlayOptionalKey),
+    );
+
+    await tester.pump();
+
+    expect(
+      find.byKey(LoaderOverlay.defaultOverlayWidgetKey),
+      findsOneWidget,
+    );
+
+    final opacityFinder = find.byKey(LoaderOverlay.containerForOverlayColorKey);
+
+    expect(opacityFinder, findsNothing);
+
+    final containerFinder =
+        find.byKey(LoaderOverlay.containerForOverlayColorKey);
+
+    expect(containerFinder, findsNothing);
+
+    await tester.pump(Duration.zero);
+
+    expect(
+      find.byKey(LoaderOverlay.defaultOverlayWidgetKey, skipOffstage: false),
+      findsNothing,
+    );
+
+    expect(
+      find.byKey(LoaderOverlay.containerForOverlayColorKey,
+          skipOffstage: false),
+      findsNothing,
+    );
+  });
 }
 
 class TestApp extends StatelessWidget {
@@ -220,12 +265,16 @@ class TestApp extends StatelessWidget {
     Key? key,
     this.overlayWidgetBuilder,
     this.useDefaultLoading = LoaderOverlay.useDefaultLoadingValue,
+    this.overlayColor,
   }) : super(key: key);
 
   final Widget Function(dynamic progress)? overlayWidgetBuilder;
   final bool useDefaultLoading;
+  final Color? overlayColor;
 
   static const showHideOverlayIconKey = Key('@test/show-hide-overlay');
+  static const showHideOverlayOptionalKey =
+      Key('@test/show-hide-overlay-optional');
 
   @override
   Widget build(BuildContext context) {
@@ -233,18 +282,33 @@ class TestApp extends StatelessWidget {
       home: LoaderOverlay(
         overlayWidgetBuilder: overlayWidgetBuilder,
         useDefaultLoading: useDefaultLoading,
-        overlayColor: LoaderOverlay.defaultOverlayColor,
+        overlayColor: overlayColor ?? LoaderOverlay.defaultOverlayColor,
         child: Scaffold(
-          body: IconButton(
-            key: TestApp.showHideOverlayIconKey,
-            onPressed: () async {
-              context.loaderOverlay.show();
+          body: Column(
+            children: [
+              IconButton(
+                key: TestApp.showHideOverlayIconKey,
+                onPressed: () async {
+                  context.loaderOverlay.show();
 
-              await Future.delayed(Duration.zero);
+                  await Future.delayed(Duration.zero);
 
-              context.loaderOverlay.hide();
-            },
-            icon: const Icon(Icons.add),
+                  context.loaderOverlay.hide();
+                },
+                icon: const Icon(Icons.add),
+              ),
+              IconButton(
+                key: TestApp.showHideOverlayOptionalKey,
+                onPressed: () async {
+                  context.loaderOverlay.show(showOverlay: false);
+
+                  await Future.delayed(Duration.zero);
+
+                  context.loaderOverlay.hide();
+                },
+                icon: const Icon(Icons.add),
+              ),
+            ],
           ),
         ),
       ),

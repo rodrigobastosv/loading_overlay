@@ -104,6 +104,7 @@ class _OverlayExtensionHelper {
   void show({
     Widget Function(dynamic progress)? widgetBuilder,
     dynamic progress,
+    bool showOverlay = true,
   }) {
     _widgetBuilder = widgetBuilder;
     _visible = true;
@@ -111,6 +112,7 @@ class _OverlayExtensionHelper {
       _visible!,
       widgetBuilder: _widgetBuilder,
       progress: progress,
+      showOverlay: showOverlay,
     );
   }
 
