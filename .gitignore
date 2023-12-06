@@ -28,6 +28,7 @@
 .packages
 .pub-cache/
 .pub/
+.vscode/
 build/
 
 # Android related
