@@ -9,6 +9,7 @@ import '../loader_overlay.dart';
 const String cLoading = 'loading';
 const String cWidgetBuilder = 'widget_builder';
 const String cProgress = 'progress';
+const String cShowOverlay = 'show_overlay';
 
 /// Class that effectively display the overlay on the screen. It's a Stateful widget
 /// so we can dispose when not needed anymore
@@ -136,6 +137,7 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
             cLoading: false,
             cWidgetBuilder: null,
             cProgress: null,
+            cShowOverlay: true,
           },
           builder: (_, snapshot) {
             // ignore: unused_local_variable
@@ -145,6 +147,7 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
             final widgetOverlayBuilder = snapshot.data![cWidgetBuilder]
                 as Widget Function(dynamic progress)?;
             final progress = snapshot.data![cProgress] as dynamic;
+            final showOverlay = snapshot.data![cShowOverlay] as bool;
 
             if (widget.useBackButtonInterceptor) {
               if (isLoading) {
@@ -170,6 +173,7 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
                             isLoading,
                             widgetOverlayBuilder: widgetOverlayBuilder,
                             progress: progress,
+                            showOverlay: showOverlay,
                           ),
                         )
                       : const SizedBox.shrink(),
@@ -186,29 +190,32 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
     bool isLoading, {
     Widget Function(dynamic progress)? widgetOverlayBuilder,
     dynamic progress,
+    bool showOverlay = true,
   }) =>
       [
         WillPopScope(
           onWillPop: () async => !widget.disableBackButton,
-          child: widget.overlayWholeScreen
-              ? SizedBox.expand(
-                  child: ColoredBox(
-                    key: LoaderOverlay.containerForOverlayColorKey,
-                    color: widget.overlayColor ??
-                        LoaderOverlay.defaultOverlayColor,
-                  ),
-                )
-              : Center(
-                  child: SizedBox(
-                    height: widget.overlayHeight,
-                    width: widget.overlayWidth,
-                    child: ColoredBox(
-                      key: LoaderOverlay.containerForOverlayColorKey,
-                      color: widget.overlayColor ??
-                          LoaderOverlay.defaultOverlayColor,
-                    ),
-                  ),
-                ),
+          child: showOverlay
+              ? widget.overlayWholeScreen
+                  ? SizedBox.expand(
+                      child: ColoredBox(
+                        key: LoaderOverlay.containerForOverlayColorKey,
+                        color: widget.overlayColor ??
+                            LoaderOverlay.defaultOverlayColor,
+                      ),
+                    )
+                  : Center(
+                      child: SizedBox(
+                        height: widget.overlayHeight,
+                        width: widget.overlayWidth,
+                        child: ColoredBox(
+                          key: LoaderOverlay.containerForOverlayColorKey,
+                          color: widget.overlayColor ??
+                              LoaderOverlay.defaultOverlayColor,
+                        ),
+                      ),
+                    )
+              : const SizedBox(),
         ),
         if (widgetOverlayBuilder != null)
           _widgetOverlay(widgetOverlayBuilder(progress))

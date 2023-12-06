@@ -24,11 +24,13 @@ class OverlayControllerWidget extends InheritedWidget {
     bool loading, {
     Widget Function(dynamic progress)? widgetBuilder,
     dynamic progress,
+    bool showOverlay = true,
   }) =>
       visibilityController.add(<String, dynamic>{
         cLoading: loading,
         cWidgetBuilder: widgetBuilder,
         cProgress: progress,
+        cShowOverlay: showOverlay,
       });
 
   ///Dispose the controller
