@@ -193,8 +193,8 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
     bool showOverlay = true,
   }) =>
       [
-        WillPopScope(
-          onWillPop: () async => !widget.disableBackButton,
+        PopScope(
+          canPop: !widget.disableBackButton,
           child: showOverlay
               ? widget.overlayWholeScreen
                   ? SizedBox.expand(
