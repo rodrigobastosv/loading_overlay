@@ -1,3 +1,7 @@
+# 4.0.0
+
+- Changing version constraints
+
 # 3.0.4
 
 - Updating dependencies
