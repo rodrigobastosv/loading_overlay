@@ -176,7 +176,7 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
                             showOverlay: showOverlay,
                           ),
                         )
-                      : const SizedBox.shrink(),
+                      : SizedBox.shrink(key: UniqueKey()),
                 ),
               ],
             );
