@@ -1,3 +1,7 @@
+# 4.0.1
+
+- Fix reverse Duration
+
 # 4.0.0
 
 - Changing version constraints
