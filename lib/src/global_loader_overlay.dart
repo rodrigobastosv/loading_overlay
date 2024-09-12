@@ -9,7 +9,8 @@ class GlobalLoaderOverlay extends StatefulWidget {
     Key? key,
     this.textDirection = TextDirection.ltr,
     this.overlayWidgetBuilder,
-    this.useDefaultLoading = true,
+    @Deprecated('Use `overlayWidgetBuilder == null` instead')
+    this.useDefaultLoading,
     this.overlayColor,
     this.disableBackButton = true,
     this.overlayWholeScreen = true,
@@ -30,10 +31,10 @@ class GlobalLoaderOverlay extends StatefulWidget {
 
   /// The widget of the overlay. This is great if you want to insert your own widget to serve as
   /// an overlay.
-  final Widget Function(dynamic progress)? overlayWidgetBuilder;
+  final OverlayWidgetBuilder? overlayWidgetBuilder;
 
-  /// Whether or not to use a default loading if none is provided.
-  final bool useDefaultLoading;
+  @Deprecated('Use `overlayWidgetBuilder == null` instead')
+  final bool? useDefaultLoading;
 
   /// The color of the overlay
   final Color? overlayColor;
@@ -71,10 +72,10 @@ class GlobalLoaderOverlay extends StatefulWidget {
   final Curve switchOutCurve;
 
   /// The transition builder for the overlay
-  final Widget Function(Widget, Animation<double>) transitionBuilder;
+  final OverlayTransitionBuilder transitionBuilder;
 
   /// The layout builder for the overlay
-  final Widget Function(Widget?, List<Widget>) layoutBuilder;
+  final OverlayLayoutBuilder layoutBuilder;
 
   /// TextDirection of the app. This is generaly used when putting [LoaderOverlay] above MaterialApp.
   final TextDirection textDirection;
@@ -90,7 +91,6 @@ class _GlobalLoaderOverlayState extends State<GlobalLoaderOverlay> {
       textDirection: widget.textDirection,
       child: LoaderOverlay(
         overlayWidgetBuilder: widget.overlayWidgetBuilder,
-        useDefaultLoading: widget.useDefaultLoading,
         overlayColor: widget.overlayColor,
         disableBackButton: widget.disableBackButton,
         overlayWholeScreen: widget.overlayWholeScreen,

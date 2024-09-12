@@ -119,7 +119,6 @@ void main() {
     await tester.pumpWidget(
       TestApp(
         overlayWidgetBuilder: (progress) => Container(key: containerKey),
-        useDefaultLoading: false,
       ),
     );
 
@@ -264,12 +263,10 @@ class TestApp extends StatelessWidget {
   const TestApp({
     Key? key,
     this.overlayWidgetBuilder,
-    this.useDefaultLoading = LoaderOverlay.useDefaultLoadingValue,
     this.overlayColor,
   }) : super(key: key);
 
   final Widget Function(dynamic progress)? overlayWidgetBuilder;
-  final bool useDefaultLoading;
   final Color? overlayColor;
 
   static const showHideOverlayIconKey = Key('@test/show-hide-overlay');
@@ -281,7 +278,6 @@ class TestApp extends StatelessWidget {
     return MaterialApp(
       home: LoaderOverlay(
         overlayWidgetBuilder: overlayWidgetBuilder,
-        useDefaultLoading: useDefaultLoading,
         overlayColor: overlayColor ?? LoaderOverlay.defaultOverlayColor,
         child: Scaffold(
           body: Column(
