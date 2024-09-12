@@ -11,13 +11,18 @@ const String cWidgetBuilder = 'widget_builder';
 const String cProgress = 'progress';
 const String cShowOverlay = 'show_overlay';
 
+typedef OverlayWidgetBuilder = Widget Function(dynamic progress);
+typedef OverlayTransitionBuilder = Widget Function(Widget, Animation<double>);
+typedef OverlayLayoutBuilder = Widget Function(Widget?, List<Widget>);
+
 /// Class that effectively display the overlay on the screen. It's a Stateful widget
 /// so we can dispose when not needed anymore
 class LoaderOverlay extends StatefulWidget {
   const LoaderOverlay({
     Key? key,
     this.overlayWidgetBuilder,
-    this.useDefaultLoading = useDefaultLoadingValue,
+    @Deprecated('Use `overlayWidgetBuilder == null` instead')
+    this.useDefaultLoading,
     this.overlayColor,
     this.disableBackButton = true,
     this.overlayWholeScreen = true,
@@ -38,10 +43,10 @@ class LoaderOverlay extends StatefulWidget {
 
   /// The widget of the overlay. This is great if you want to insert your own widget to serve as
   /// an overlay.
-  final Widget Function(dynamic progress)? overlayWidgetBuilder;
+  final OverlayWidgetBuilder? overlayWidgetBuilder;
 
-  /// Whether or not to use a default loading if none is provided.
-  final bool useDefaultLoading;
+  @Deprecated('Use `overlayWidgetBuilder == null` instead')
+  final bool? useDefaultLoading;
 
   /// The color of the overlay
   final Color? overlayColor;
@@ -79,10 +84,10 @@ class LoaderOverlay extends StatefulWidget {
   final Curve switchOutCurve;
 
   /// The transition builder for the overlay
-  final Widget Function(Widget, Animation<double>) transitionBuilder;
+  final OverlayTransitionBuilder transitionBuilder;
 
   /// The layout builder for the overlay
-  final Widget Function(Widget?, List<Widget>) layoutBuilder;
+  final OverlayLayoutBuilder layoutBuilder;
 
   static const _prefix = '@loader-overlay';
 
@@ -92,8 +97,6 @@ class LoaderOverlay extends StatefulWidget {
 
   static const containerForOverlayColorKey =
       Key('$_prefix/container-for-overlay-color');
-
-  static const useDefaultLoadingValue = true;
 
   @override
   _LoaderOverlayState createState() => _LoaderOverlayState();
@@ -217,28 +220,45 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
                     )
               : const SizedBox(),
         ),
-        if (widgetOverlayBuilder != null)
-          _widgetOverlay(widgetOverlayBuilder(progress))
+        if (widget.overlayWidgetBuilder != null)
+          _OverlayWidgetBuilder(
+            child: widget.overlayWidgetBuilder!(progress),
+          )
         else
-          widget.useDefaultLoading
-              ? _getDefaultLoadingWidget()
-              : widget.overlayWidgetBuilder != null
-                  ? widget.overlayWidgetBuilder!(progress)
-                  : const SizedBox(),
+          const _DefaultOverlayWidget(),
       ];
+}
 
-  Widget _widgetOverlay(Widget widget) => SizedBox(
-        height: double.infinity,
-        width: double.infinity,
-        child: Material(
-          color: Colors.transparent,
-          child: widget,
-        ),
-      );
+class _OverlayWidgetBuilder extends StatelessWidget {
+  const _OverlayWidgetBuilder({
+    required this.child,
+    Key? key,
+  }) : super(key: key);
 
-  Widget _getDefaultLoadingWidget() => const Center(
-        child: CircularProgressIndicator.adaptive(
-          key: LoaderOverlay.defaultOverlayWidgetKey,
-        ),
-      );
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: double.infinity,
+      width: double.infinity,
+      child: Material(
+        color: Colors.transparent,
+        child: child,
+      ),
+    );
+  }
+}
+
+class _DefaultOverlayWidget extends StatelessWidget {
+  const _DefaultOverlayWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: CircularProgressIndicator.adaptive(
+        key: LoaderOverlay.defaultOverlayWidgetKey,
+      ),
+    );
+  }
 }
