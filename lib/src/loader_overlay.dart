@@ -96,7 +96,7 @@ class LoaderOverlay extends StatefulWidget {
   static const useDefaultLoadingValue = true;
 
   @override
-  _LoaderOverlayState createState() => _LoaderOverlayState();
+  State<LoaderOverlay> createState() => _LoaderOverlayState();
 }
 
 // Has the Center CircularProgressIndicator as the default loader

@@ -80,7 +80,7 @@ class GlobalLoaderOverlay extends StatefulWidget {
   final TextDirection textDirection;
 
   @override
-  _GlobalLoaderOverlayState createState() => _GlobalLoaderOverlayState();
+  State<GlobalLoaderOverlay> createState() => _GlobalLoaderOverlayState();
 }
 
 class _GlobalLoaderOverlayState extends State<GlobalLoaderOverlay> {
