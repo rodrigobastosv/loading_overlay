@@ -99,7 +99,7 @@ class LoaderOverlay extends StatefulWidget {
       Key('$_prefix/container-for-overlay-color');
 
   @override
-  _LoaderOverlayState createState() => _LoaderOverlayState();
+  State<LoaderOverlay> createState() => _LoaderOverlayState();
 }
 
 // Has the Center CircularProgressIndicator as the default loader

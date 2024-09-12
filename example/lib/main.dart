@@ -2,12 +2,26 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 
-void main() => runApp(MyAppGlobalLoaderOverlay());
+void main() => runApp(const MyAppGlobalLoaderOverlay());
 
 class MyAppGlobalLoaderOverlay extends StatelessWidget {
+  const MyAppGlobalLoaderOverlay({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GlobalLoaderOverlay(
+      duration: Durations.medium4,
+      reverseDuration: Durations.medium4,
+      overlayColor: Colors.grey.withOpacity(0.8),
+      overlayWidgetBuilder: (_) {
+        //ignored progress for the moment
+        return const Center(
+          child: SpinKitCubeGrid(
+            color: Colors.red,
+            size: 50.0,
+          ),
+        );
+      },
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
@@ -17,31 +31,18 @@ class MyAppGlobalLoaderOverlay extends StatelessWidget {
         ),
         initialRoute: '/',
         routes: {
-          '/': (context) => MyHomePage(),
+          '/': (context) => const MyHomePage(),
         },
       ),
-      duration: Durations.medium4,
-      reverseDuration: Durations.medium4,
-      overlayColor: Colors.grey.withOpacity(0.8),
-      useDefaultLoading: false,
-      overlayWidgetBuilder: (_) {
-        //ignored progress for the moment
-        return Center(
-          child: SpinKitCubeGrid(
-            color: Colors.red,
-            size: 50.0,
-          ),
-        );
-      },
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key}) : super(key: key);
+  const MyHomePage({Key? key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -60,17 +61,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 setState(() {
                   _isLoaderVisible = context.loaderOverlay.visible;
                 });
-                await Future.delayed(Duration(seconds: 2));
-                if (_isLoaderVisible) {
+                await Future.delayed(const Duration(seconds: 2));
+                if (_isLoaderVisible && context.mounted) {
                   context.loaderOverlay.hide();
                 }
                 setState(() {
                   _isLoaderVisible = context.loaderOverlay.visible;
                 });
               },
-              child: Text('Show overlay for 2 seconds'),
+              child: const Text('Show overlay for 2 seconds'),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () async {
                 context.loaderOverlay.show(
@@ -83,17 +84,17 @@ class _MyHomePageState extends State<MyHomePage> {
                 setState(() {
                   _isLoaderVisible = context.loaderOverlay.visible;
                 });
-                await Future.delayed(Duration(seconds: 3));
-                if (_isLoaderVisible) {
+                await Future.delayed(const Duration(seconds: 3));
+                if (_isLoaderVisible && context.mounted) {
                   context.loaderOverlay.hide();
                 }
                 setState(() {
                   _isLoaderVisible = context.loaderOverlay.visible;
                 });
               },
-              child: Text('Show custom loader overlay for 2 seconds'),
+              child: const Text('Show custom loader overlay for 2 seconds'),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             ElevatedButton(
               onPressed: () async {
                 context.loaderOverlay.show(
@@ -103,24 +104,31 @@ class _MyHomePageState extends State<MyHomePage> {
                   _isLoaderVisible = context.loaderOverlay.visible;
                 });
 
-                await Future.delayed(Duration(seconds: 1));
-                context.loaderOverlay.progress('Doing progress #1');
-                await Future.delayed(Duration(seconds: 1));
-                context.loaderOverlay.progress('Doing progress #2');
-                await Future.delayed(Duration(seconds: 1));
-                context.loaderOverlay.progress('Doing progress #3');
-                await Future.delayed(Duration(seconds: 1));
+                await Future.delayed(const Duration(seconds: 1));
+                if (context.mounted) {
+                  context.loaderOverlay.progress('Doing progress #1');
+                }
+                await Future.delayed(const Duration(seconds: 1));
+                if (context.mounted) {
+                  context.loaderOverlay.progress('Doing progress #2');
+                }
+                await Future.delayed(const Duration(seconds: 1));
+                if (context.mounted) {
+                  context.loaderOverlay.progress('Doing progress #3');
+                }
+                await Future.delayed(const Duration(seconds: 1));
 
-                if (_isLoaderVisible) {
+                if (_isLoaderVisible && context.mounted) {
                   context.loaderOverlay.hide();
                 }
                 setState(() {
                   _isLoaderVisible = context.loaderOverlay.visible;
                 });
               },
-              child: Text('Show loader overlay for 5 seconds with progress'),
+              child:
+                  const Text('Show loader overlay for 5 seconds with progress'),
             ),
-            SizedBox(height: 34),
+            const SizedBox(height: 34),
             Text('Is loader visible: $_isLoaderVisible'),
           ],
         ),
@@ -132,7 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
 class ReconnectingOverlay extends StatelessWidget {
   final String? progress;
 
-  ReconnectingOverlay(this.progress);
+  const ReconnectingOverlay(this.progress, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) => Center(
@@ -140,12 +148,12 @@ class ReconnectingOverlay extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CircularProgressIndicator(),
-            SizedBox(height: 12),
-            Text(
+            const CircularProgressIndicator(),
+            const SizedBox(height: 12),
+            const Text(
               'Reconnecting...',
             ),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Text(
               progress ?? '',
             ),

@@ -8,7 +8,7 @@ const globalLoaderContext = _GlobalLoaderContext._();
 class _GlobalLoaderContext {
   const _GlobalLoaderContext._();
 
-  _OverlayExtensionHelper get loaderOverlay => _OverlayExtensionHelper(
+  OverlayExtensionHelper get loaderOverlay => OverlayExtensionHelper._(
       OverlayControllerWidget.of(_keyScaff.currentState!.context));
 
   /// init GlobalLoaderContext: Add in your MaterialApp
@@ -75,13 +75,13 @@ extension OverlayControllerWidgetExtension on BuildContext {
   OverlayControllerWidget? getOverlayController() =>
       OverlayControllerWidget.of(this);
 
-  _OverlayExtensionHelper get loaderOverlay =>
-      _OverlayExtensionHelper(OverlayControllerWidget.of(this));
+  OverlayExtensionHelper get loaderOverlay =>
+      OverlayExtensionHelper._(OverlayControllerWidget.of(this));
 }
 
-class _OverlayExtensionHelper {
-  static final _OverlayExtensionHelper _singleton =
-      _OverlayExtensionHelper._internal();
+class OverlayExtensionHelper {
+  static final OverlayExtensionHelper _singleton =
+      OverlayExtensionHelper._internal();
   late OverlayControllerWidget _overlayController;
 
   Widget Function(dynamic progress)? _widgetBuilder;
@@ -91,7 +91,7 @@ class _OverlayExtensionHelper {
 
   bool get visible => _visible ?? false;
 
-  factory _OverlayExtensionHelper(OverlayControllerWidget? overlayController) {
+  factory OverlayExtensionHelper._(OverlayControllerWidget? overlayController) {
     if (overlayController != null) {
       _singleton._overlayController = overlayController;
     }
@@ -99,7 +99,7 @@ class _OverlayExtensionHelper {
     return _singleton;
   }
 
-  _OverlayExtensionHelper._internal();
+  OverlayExtensionHelper._internal();
 
   void show({
     Widget Function(dynamic progress)? widgetBuilder,
