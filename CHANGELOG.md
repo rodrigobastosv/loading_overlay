@@ -1,3 +1,7 @@
+# 4.0.2
+
+- Update versions and some cleanup work
+
 # 4.0.1
 
 - Fix reverse Duration
