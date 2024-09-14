@@ -1,3 +1,7 @@
+# 4.0.2+1
+
+- Fix bug introduced on the previous version
+
 # 4.0.2
 
 - Update versions and some cleanup work
