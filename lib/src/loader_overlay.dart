@@ -21,8 +21,7 @@ class LoaderOverlay extends StatefulWidget {
   const LoaderOverlay({
     Key? key,
     this.overlayWidgetBuilder,
-    @Deprecated('Use `overlayWidgetBuilder == null` instead')
-    this.useDefaultLoading,
+    @Deprecated('Use `overlayWidgetBuilder == null` instead') this.useDefaultLoading,
     this.overlayColor,
     this.disableBackButton = true,
     this.overlayWholeScreen = true,
@@ -95,8 +94,7 @@ class LoaderOverlay extends StatefulWidget {
 
   static Color defaultOverlayColor = Colors.grey.withOpacity(0.4);
 
-  static const containerForOverlayColorKey =
-      Key('$_prefix/container-for-overlay-color');
+  static const containerForOverlayColorKey = Key('$_prefix/container-for-overlay-color');
 
   @override
   State<LoaderOverlay> createState() => _LoaderOverlayState();
@@ -144,11 +142,9 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
           },
           builder: (_, snapshot) {
             // ignore: unused_local_variable
-            final visibilityStream =
-                innerContext.loaderOverlay.overlayController.visibilityStream;
+            final visibilityStream = innerContext.loaderOverlay.overlayController.visibilityStream;
             final isLoading = snapshot.data![cLoading] as bool;
-            final widgetOverlayBuilder = snapshot.data![cWidgetBuilder]
-                as Widget Function(dynamic progress)?;
+            final widgetOverlayBuilder = snapshot.data![cWidgetBuilder] as Widget Function(dynamic progress)?;
             final progress = snapshot.data![cProgress] as dynamic;
             final showOverlay = snapshot.data![cShowOverlay] as bool;
 
@@ -203,8 +199,7 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
                   ? SizedBox.expand(
                       child: ColoredBox(
                         key: LoaderOverlay.containerForOverlayColorKey,
-                        color: widget.overlayColor ??
-                            LoaderOverlay.defaultOverlayColor,
+                        color: widget.overlayColor ?? LoaderOverlay.defaultOverlayColor,
                       ),
                     )
                   : Center(
@@ -213,14 +208,17 @@ class _LoaderOverlayState extends State<LoaderOverlay> {
                         width: widget.overlayWidth,
                         child: ColoredBox(
                           key: LoaderOverlay.containerForOverlayColorKey,
-                          color: widget.overlayColor ??
-                              LoaderOverlay.defaultOverlayColor,
+                          color: widget.overlayColor ?? LoaderOverlay.defaultOverlayColor,
                         ),
                       ),
                     )
               : const SizedBox(),
         ),
-        if (widget.overlayWidgetBuilder != null)
+        if (widgetOverlayBuilder != null)
+          _OverlayWidgetBuilder(
+            child: widgetOverlayBuilder(progress),
+          )
+        else if (widget.overlayWidgetBuilder != null)
           _OverlayWidgetBuilder(
             child: widget.overlayWidgetBuilder!(progress),
           )
