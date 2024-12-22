@@ -1,3 +1,7 @@
+# 4.0.4
+
+- Updating dependencies
+
 # 4.0.3
 
 - Formating file
