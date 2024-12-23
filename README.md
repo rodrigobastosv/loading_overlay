@@ -115,7 +115,7 @@ class MyApp extends StatelessWidget {
 
 Another customisation you can do is configure the color and opacity of the overlay.
 The default opacity is grey with 0.4 opacity, but you can change it with
-the `overlayColor: Colors.yellow.withOpacity(0.8)`.
+the `overlayColor: Colors.yellow.withValues(alpha: 0.8)`.
 
 ```dart
 class MyApp extends StatelessWidget {
@@ -136,7 +136,7 @@ class MyApp extends StatelessWidget {
             ),
           );
         },
-        overlayColor: Colors.yellow.withOpacity(0.8),
+        overlayColor: Colors.yellow.withValues(alpha: 0.8),
         child: MyHomePage(title: 'Flutter Demo Home Page'),
       ),
     );
@@ -354,7 +354,7 @@ After:
 ```dart
       LoaderOverlay(
         //...
-        overlayColor: Colors.black.withOpacity(0.8),
+        overlayColor: Colors.black.withValues(alpha: 0.8),
         //...
       )
 ```
