@@ -1,3 +1,7 @@
+# 5.0.0
+
+- BREAKING CHANGE: Using withValues instead of withOpacity
+
 # 4.0.4+1
 
 - Adjust break change
