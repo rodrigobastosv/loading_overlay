@@ -93,7 +93,7 @@ class LoaderOverlay extends StatefulWidget {
 
   static const defaultOverlayWidgetKey = Key('$_prefix/default-widget');
 
-  static Color defaultOverlayColor = Colors.grey.withValues(alpha: 0.4);
+  static Color defaultOverlayColor = Colors.grey.withOpacity(0.4);
 
   static const containerForOverlayColorKey =
       Key('$_prefix/container-for-overlay-color');

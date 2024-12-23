@@ -12,7 +12,7 @@ class MyAppGlobalLoaderOverlay extends StatelessWidget {
     return GlobalLoaderOverlay(
       duration: Durations.medium4,
       reverseDuration: Durations.medium4,
-      overlayColor: Colors.grey.withValues(alpha: 0.8),
+      overlayColor: Colors.grey.withOpacity(0.8),
       overlayWidgetBuilder: (_) {
         //ignored progress for the moment
         return const Center(

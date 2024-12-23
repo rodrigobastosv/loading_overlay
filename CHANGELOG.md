@@ -1,3 +1,7 @@
+# 4.0.4+1
+
+- Adjust break change
+
 # 4.0.4
 
 - Updating dependencies
